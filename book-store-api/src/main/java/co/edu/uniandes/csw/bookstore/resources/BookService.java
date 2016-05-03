@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bookstore.resources;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
@@ -40,12 +40,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.bookstore.api.IBookLogic;
 import co.edu.uniandes.csw.bookstore.dtos.basic.BookBasicDTO;
-import co.edu.uniandes.csw.bookstore.dtos.full.BookFullDTO;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.dtos.basic.AuthorBasicDTO;
-import co.edu.uniandes.csw.bookstore.dtos.full.AuthorFullDTO;
 import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
-import java.util.ArrayList;
+import static java.util.stream.Collectors.toList;
+
 /**
  * @generated
  */
@@ -54,39 +53,32 @@ import java.util.ArrayList;
 @Produces(MediaType.APPLICATION_JSON)
 public class BookService {
 
-    @Inject private IBookLogic bookLogic;
-    @Context private HttpServletResponse response;
-    @QueryParam("page") private Integer page;
-    @QueryParam("maxRecords") private Integer maxRecords;
+    @Inject
+    private IBookLogic bookLogic;
+    @Context
+    private HttpServletResponse response;
+    @QueryParam("page")
+    private Integer page;
+    @QueryParam("maxRecords")
+    private Integer maxRecords;
 
-    private List<BookBasicDTO> listEntity2DTO(List<BookEntity> entityList){
-        List<BookBasicDTO> list = new ArrayList<>();
-        for (BookEntity entity : entityList) {
-            list.add(new BookBasicDTO(entity));
-        }
-        return list;
+    private List<BookBasicDTO> listEntity2DTO(List<BookEntity> entityList) {
+        return entityList.parallelStream().map(BookBasicDTO::new).collect(toList());
     }
 
-    private List<AuthorBasicDTO> authorsListEntity2DTO(List<AuthorEntity> entityList){
-        List<AuthorBasicDTO> list = new ArrayList<>();
-        for (AuthorEntity entity : entityList) {
-            list.add(new AuthorBasicDTO(entity));
-        }
-        return list;
+    private List<AuthorBasicDTO> authorsListEntity2DTO(List<AuthorEntity> entityList) {
+        return entityList.parallelStream().map(AuthorBasicDTO::new).collect(toList());
     }
 
-    private List<AuthorEntity> authorsListDTO2Entity(List<AuthorBasicDTO> dtos){
-        List<AuthorEntity> list = new ArrayList<>();
-        for (AuthorBasicDTO dto : dtos) {
-            list.add(dto.toEntity());
-        }
-        return list;
+    private List<AuthorEntity> authorsListDTO2Entity(List<AuthorBasicDTO> dtos) {
+        return dtos.parallelStream().map(AuthorBasicDTO::toEntity).collect(toList());
     }
 
     /**
      * Obtiene la lista de los registros de Book.
      *
-     * @return Colección de objetos de BookBasicDTO cada uno con sus respectivos Review
+     * @return Colección de objetos de BookBasicDTO cada uno con sus respectivos
+     * Review
      * @generated
      */
     @GET
@@ -102,44 +94,46 @@ public class BookService {
      * Obtiene los datos de una instancia de Book a partir de su ID.
      *
      * @param id Identificador de la instancia a consultar
-     * @return Instancia de BookFullDTO con los datos del Book consultado y sus Review
+     * @return Instancia de BookBasicDTO con los datos del Book consultado y sus
+     * Review
      * @generated
      */
     @GET
     @Path("{id: \\d+}")
-    public BookFullDTO getBook(@PathParam("id") Long id) {
-        return new BookFullDTO(bookLogic.getBook(id));
+    public BookBasicDTO getBook(@PathParam("id") Long id) {
+        return new BookBasicDTO(bookLogic.getBook(id));
     }
 
     /**
      * Se encarga de crear un book en la base de datos.
      *
-     * @param dto Objeto de BookFullDTO con los datos nuevos
-     * @return Objeto de BookFullDTOcon los datos nuevos y su ID.
+     * @param dto Objeto de BookBasicDTO con los datos nuevos
+     * @return Objeto de BookBasicDTOcon los datos nuevos y su ID.
      * @generated
      */
     @POST
     @StatusCreated
-    public BookFullDTO createBook(BookFullDTO dto) {
-        return new BookFullDTO(bookLogic.createBook(dto.toEntity()));
+    public BookBasicDTO createBook(BookBasicDTO dto) {
+        return new BookBasicDTO(bookLogic.createBook(dto.toEntity()));
     }
 
     /**
      * Actualiza la información de una instancia de Book.
      *
      * @param id Identificador de la instancia de Book a modificar
-     * @param dto Instancia de BookFullDTO con los nuevos datos.
-     * @return Instancia de BookFullDTO con los datos actualizados.
+     * @param dto Instancia de BookBasicDTO con los nuevos datos.
+     * @return Instancia de BookBasicDTO con los datos actualizados.
      * @generated
      */
     @PUT
     @Path("{id: \\d+}")
-    public BookFullDTO updateBook(@PathParam("id") Long id, BookFullDTO dto) {
+    public BookBasicDTO updateBook(@PathParam("id") Long id, BookBasicDTO dto) {
         BookEntity entity = dto.toEntity();
         entity.setId(id);
         BookEntity oldEntity = bookLogic.getBook(id);
         entity.setAuthors(oldEntity.getAuthors());
-        return new BookFullDTO(bookLogic.updateBook(entity));
+        entity.setReviews(oldEntity.getReviews());
+        return new BookBasicDTO(bookLogic.updateBook(entity));
     }
 
     /**
@@ -159,7 +153,8 @@ public class BookService {
      * instancia de Book
      *
      * @param bookId Identificador de la instancia de Book
-     * @return Colección de instancias de AuthorBasicDTO asociadas a la instancia de Book
+     * @return Colección de instancias de AuthorBasicDTO asociadas a la
+     * instancia de Book
      * @generated
      */
     @GET
@@ -177,8 +172,8 @@ public class BookService {
      */
     @GET
     @Path("{bookId: \\d+}/authors/{authorId: \\d+}")
-    public AuthorFullDTO getAuthors(@PathParam("bookId") Long bookId, @PathParam("authorId") Long authorId) {
-        return new AuthorFullDTO(bookLogic.getAuthors(bookId, authorId));
+    public AuthorBasicDTO getAuthors(@PathParam("bookId") Long bookId, @PathParam("authorId") Long authorId) {
+        return new AuthorBasicDTO(bookLogic.getAuthors(bookId, authorId));
     }
 
     /**
@@ -186,20 +181,21 @@ public class BookService {
      *
      * @param bookId Identificador de la instancia de Book
      * @param authorId Identificador de la instancia de Author
-     * @return Instancia de AuthorFullDTO que fue asociada a Book
+     * @return Instancia de AuthorBasicDTO que fue asociada a Book
      * @generated
      */
     @POST
     @Path("{bookId: \\d+}/authors/{authorId: \\d+}")
-    public AuthorFullDTO addAuthors(@PathParam("bookId") Long bookId, @PathParam("authorId") Long authorId) {
-        return new AuthorFullDTO(bookLogic.addAuthors(bookId, authorId));
+    public AuthorBasicDTO addAuthors(@PathParam("bookId") Long bookId, @PathParam("authorId") Long authorId) {
+        return new AuthorBasicDTO(bookLogic.addAuthors(bookId, authorId));
     }
 
     /**
      * Remplaza las instancias de Author asociadas a una instancia de Book
      *
      * @param bookId Identificador de la instancia de Book
-     * @param authors Colección de instancias de AuthorDTO a asociar a instancia de Book
+     * @param authors Colección de instancias de AuthorDTO a asociar a instancia
+     * de Book
      * @return Nueva colección de AuthorDTO asociada a la instancia de Book
      * @generated
      */
@@ -220,5 +216,10 @@ public class BookService {
     @Path("{bookId: \\d+}/authors/{authorId: \\d+}")
     public void removeAuthors(@PathParam("bookId") Long bookId, @PathParam("authorId") Long authorId) {
         bookLogic.removeAuthors(bookId, authorId);
+    }
+
+    @Path("{bookId: \\d+}/reviews")
+    public Class<ReviewService> getReviewService() {
+        return ReviewService.class;
     }
 }

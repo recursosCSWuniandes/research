@@ -20,15 +20,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bookstore.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
-import co.edu.uniandes.csw.bookstore.dtos.full.BookFullDTO;
+import co.edu.uniandes.csw.bookstore.dtos.basic.BookBasicDTO;
 import co.edu.uniandes.csw.bookstore.dtos.minimum.BookMinimumDTO;
 import co.edu.uniandes.csw.bookstore.dtos.minimum.AuthorMinimumDTO;
-import co.edu.uniandes.csw.bookstore.dtos.minimum.ReviewMinimumDTO;
 import co.edu.uniandes.csw.bookstore.resources.BookService;
 import java.io.File;
 import java.io.IOException;
@@ -110,18 +109,8 @@ public class BookTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
-            BookFullDTO book = factory.manufacturePojo(BookFullDTO.class);
+            BookBasicDTO book = factory.manufacturePojo(BookBasicDTO.class);
             book.setId(i + 1L);
-            List<ReviewMinimumDTO> reviewsList = new ArrayList<>();
-            for (int j = 0; j < 5; j++)
-            {
-                ReviewMinimumDTO reviews = factory.manufacturePojo(ReviewMinimumDTO.class);
-                reviews.setId(i + 1L);
-                reviewsList.add(reviews);
-            }
-
-            book.setReviews(reviewsList);
-
             oraculo.add(book);
 
             AuthorMinimumDTO authors = factory.manufacturePojo(AuthorMinimumDTO.class);
@@ -157,7 +146,7 @@ public class BookTest {
         Response response = target.path(bookPath)
                 .request().cookie(cookieSessionId)
                 .post(Entity.entity(book, MediaType.APPLICATION_JSON));
-        BookMinimumDTO  bookTest = (BookMinimumDTO) response.readEntity(BookMinimumDTO.class);
+        BookMinimumDTO bookTest = (BookMinimumDTO) response.readEntity(BookMinimumDTO.class);
         Assert.assertEquals(book.getId(), bookTest.getId());
         Assert.assertEquals(book.getName(), bookTest.getName());
         Assert.assertEquals(book.getDescription(), bookTest.getDescription());
@@ -234,7 +223,6 @@ public class BookTest {
 
         AuthorMinimumDTO authors = oraculoAuthors.get(0);
         BookMinimumDTO book = oraculo.get(0);
-
 
         Response response = target.path("authors")
                 .request().cookie(cookieSessionId)

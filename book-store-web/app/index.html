@@ -31,21 +31,45 @@ SOFTWARE.
 
         <!-- build:css(<%= meta.src %>) styles/vendor.css -->
         <!-- bower:css -->
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:css(<%= meta.src %>) styles/main.css -->
         <!-- include: "type": "css", "files": "<%= meta.includeCssFiles %>" -->
+        
         <!-- /include -->
         <!-- endbuild -->
 
         <!-- build:js(<%= meta.src %>) scripts/vendor.js -->
         <!-- bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="../bower_components/lodash/lodash.js"></script>
+        <script src="../bower_components/restangular/dist/restangular.js"></script>
+        <script src="../bower_components/ng-crud/dist/ngcrud.js"></script>
+        <script src="../bower_components/angular-messages/angular-messages.js"></script>
+        <script src="../bower_components/ngstorage/ngStorage.js"></script>
+        <script src="../bower_components/checklist-model/checklist-model.js"></script>
+        <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="../bower_components/csw-ng-auth/dist/csw-ng-auth.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:js(<%= meta.src %>) scripts/scripts.js -->
         <!-- include: "type": "js", "files": "<%= meta.includeJsFiles %>" -->
+        <script src="src/app.js"></script>
+        <script src="src/modules/author/author.mod.js"></script>
+        <script src="src/modules/book/book.mod.js"></script>
+        <script src="src/modules/editorial/editorial.mod.js"></script>
+        <script src="src/modules/review/review.mod.js"></script>
+        <script src="src/modules/author/author.ctrl.js"></script>
+        <script src="src/modules/book/book.ctrl.js"></script>
+        <script src="src/modules/editorial/editorial.ctrl.js"></script>
         <!-- /include -->
         <!-- endbuild -->
 
@@ -80,7 +104,7 @@ SOFTWARE.
                     </div> <!-- /.container-fluid -->
                 </nav>
             </div>
-            <div ui-view></div>
+            <div ui-view="mainView"></div>
         </div>
     </body>
 </html>

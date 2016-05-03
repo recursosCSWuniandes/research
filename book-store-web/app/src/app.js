@@ -42,8 +42,8 @@ SOFTWARE.
         }]);
 
     mod.config(['$urlRouterProvider', function ($urlRouterProvider) {
-                $urlRouterProvider.otherwise('/');
-        }]);
+        $urlRouterProvider.otherwise('/');
+    }]);
 
     mod.config(['authServiceProvider', function (auth) {
             auth.setValues({

@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bookstore.persistence;
 
 import javax.ejb.Stateless;
@@ -28,6 +28,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 /**
  * @generated
@@ -35,10 +37,11 @@ import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 @Stateless
 public class ReviewPersistence extends CrudPersistence<ReviewEntity> {
 
-    @PersistenceContext(unitName="BookStorePU")
+    @PersistenceContext(unitName = "BookStorePU")
     protected EntityManager em;
 
     /**
+     * @return 
      * @generated
      */
     @Override
@@ -47,10 +50,22 @@ public class ReviewPersistence extends CrudPersistence<ReviewEntity> {
     }
 
     /**
+     * @return 
      * @generated
      */
     @Override
     protected Class<ReviewEntity> getEntityClass() {
         return ReviewEntity.class;
+    }
+
+    public ReviewEntity find(Long bookId, Long reviewId) {
+        TypedQuery<ReviewEntity> q = em.createQuery("select r from ReviewEntity r where (r.book.id = :bookId) and (r.id = :reviewId)", ReviewEntity.class);
+        q.setParameter("bookId", bookId);
+        q.setParameter("reviewId", reviewId);
+        try{
+            return q.getSingleResult();
+        }catch(NoResultException e){
+            throw new NoResultException("No existe el review asociado al libro");
+        }
     }
 }

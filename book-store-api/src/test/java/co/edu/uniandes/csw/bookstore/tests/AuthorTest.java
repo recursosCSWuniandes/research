@@ -25,7 +25,7 @@ package co.edu.uniandes.csw.bookstore.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
-import co.edu.uniandes.csw.bookstore.dtos.full.AuthorFullDTO;
+import co.edu.uniandes.csw.bookstore.dtos.basic.AuthorBasicDTO;
 import co.edu.uniandes.csw.bookstore.dtos.minimum.AuthorMinimumDTO;
 import co.edu.uniandes.csw.bookstore.dtos.minimum.BookMinimumDTO;
 import co.edu.uniandes.csw.bookstore.resources.AuthorService;
@@ -109,7 +109,7 @@ public class AuthorTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
-            AuthorFullDTO author = factory.manufacturePojo(AuthorFullDTO.class);
+            AuthorBasicDTO author = factory.manufacturePojo(AuthorBasicDTO.class);
             author.setId(i + 1L);
 
             oraculo.add(author);

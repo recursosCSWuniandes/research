@@ -40,10 +40,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.bookstore.api.IEditorialLogic;
 import co.edu.uniandes.csw.bookstore.dtos.basic.EditorialBasicDTO;
-import co.edu.uniandes.csw.bookstore.dtos.full.EditorialFullDTO;
 import co.edu.uniandes.csw.bookstore.entities.EditorialEntity;
 import co.edu.uniandes.csw.bookstore.dtos.basic.BookBasicDTO;
-import co.edu.uniandes.csw.bookstore.dtos.full.BookFullDTO;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import java.util.ArrayList;
 /**
@@ -102,44 +100,44 @@ public class EditorialService {
      * Obtiene los datos de una instancia de Book a partir de su ID.
      *
      * @param id Identificador de la instancia a consultar
-     * @return Instancia de EditorialFullDTO con los datos del Book consultado y sus Review
+     * @return Instancia de EditorialBasicDTO con los datos del Book consultado y sus Review
      * @generated
      */
     @GET
     @Path("{id: \\d+}")
-    public EditorialFullDTO getEditorial(@PathParam("id") Long id) {
-        return new EditorialFullDTO(editorialLogic.getEditorial(id));
+    public EditorialBasicDTO getEditorial(@PathParam("id") Long id) {
+        return new EditorialBasicDTO(editorialLogic.getEditorial(id));
     }
 
     /**
      * Se encarga de crear un book en la base de datos.
      *
-     * @param dto Objeto de EditorialFullDTO con los datos nuevos
-     * @return Objeto de EditorialFullDTOcon los datos nuevos y su ID.
+     * @param dto Objeto de EditorialBasicDTO con los datos nuevos
+     * @return Objeto de EditorialBasicDTOcon los datos nuevos y su ID.
      * @generated
      */
     @POST
     @StatusCreated
-    public EditorialFullDTO createEditorial(EditorialFullDTO dto) {
-        return new EditorialFullDTO(editorialLogic.createEditorial(dto.toEntity()));
+    public EditorialBasicDTO createEditorial(EditorialBasicDTO dto) {
+        return new EditorialBasicDTO(editorialLogic.createEditorial(dto.toEntity()));
     }
 
     /**
      * Actualiza la información de una instancia de Book.
      *
      * @param id Identificador de la instancia de Book a modificar
-     * @param dto Instancia de EditorialFullDTO con los nuevos datos.
-     * @return Instancia de EditorialFullDTO con los datos actualizados.
+     * @param dto Instancia de EditorialBasicDTO con los nuevos datos.
+     * @return Instancia de EditorialBasicDTO con los datos actualizados.
      * @generated
      */
     @PUT
     @Path("{id: \\d+}")
-    public EditorialFullDTO updateEditorial(@PathParam("id") Long id, EditorialFullDTO dto) {
+    public EditorialBasicDTO updateEditorial(@PathParam("id") Long id, EditorialBasicDTO dto) {
         EditorialEntity entity = dto.toEntity();
         entity.setId(id);
         EditorialEntity oldEntity = editorialLogic.getEditorial(id);
         entity.setBooks(oldEntity.getBooks());
-        return new EditorialFullDTO(editorialLogic.updateEditorial(entity));
+        return new EditorialBasicDTO(editorialLogic.updateEditorial(entity));
     }
 
     /**
@@ -177,8 +175,8 @@ public class EditorialService {
      */
     @GET
     @Path("{editorialId: \\d+}/books/{bookId: \\d+}")
-    public BookFullDTO getBooks(@PathParam("editorialId") Long editorialId, @PathParam("bookId") Long bookId) {
-        return new BookFullDTO(editorialLogic.getBooks(editorialId, bookId));
+    public BookBasicDTO getBooks(@PathParam("editorialId") Long editorialId, @PathParam("bookId") Long bookId) {
+        return new BookBasicDTO(editorialLogic.getBooks(editorialId, bookId));
     }
 
     /**
@@ -186,13 +184,13 @@ public class EditorialService {
      *
      * @param editorialId Identificador de la instancia de Editorial
      * @param bookId Identificador de la instancia de Book
-     * @return Instancia de BookFullDTO que fue asociada a Editorial
+     * @return Instancia de BookBasicDTO que fue asociada a Editorial
      * @generated
      */
     @POST
     @Path("{editorialId: \\d+}/books/{bookId: \\d+}")
-    public BookFullDTO addBooks(@PathParam("editorialId") Long editorialId, @PathParam("bookId") Long bookId) {
-        return new BookFullDTO(editorialLogic.addBooks(editorialId, bookId));
+    public BookBasicDTO addBooks(@PathParam("editorialId") Long editorialId, @PathParam("bookId") Long bookId) {
+        return new BookBasicDTO(editorialLogic.addBooks(editorialId, bookId));
     }
 
     /**

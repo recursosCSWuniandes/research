@@ -40,10 +40,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.bookstore.api.IAuthorLogic;
 import co.edu.uniandes.csw.bookstore.dtos.basic.AuthorBasicDTO;
-import co.edu.uniandes.csw.bookstore.dtos.full.AuthorFullDTO;
 import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
 import co.edu.uniandes.csw.bookstore.dtos.basic.BookBasicDTO;
-import co.edu.uniandes.csw.bookstore.dtos.full.BookFullDTO;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import java.util.ArrayList;
 /**
@@ -102,44 +100,44 @@ public class AuthorService {
      * Obtiene los datos de una instancia de Book a partir de su ID.
      *
      * @param id Identificador de la instancia a consultar
-     * @return Instancia de AuthorFullDTO con los datos del Book consultado y sus Review
+     * @return Instancia de AuthorBasicDTO con los datos del Book consultado y sus Review
      * @generated
      */
     @GET
     @Path("{id: \\d+}")
-    public AuthorFullDTO getAuthor(@PathParam("id") Long id) {
-        return new AuthorFullDTO(authorLogic.getAuthor(id));
+    public AuthorBasicDTO getAuthor(@PathParam("id") Long id) {
+        return new AuthorBasicDTO(authorLogic.getAuthor(id));
     }
 
     /**
      * Se encarga de crear un book en la base de datos.
      *
-     * @param dto Objeto de AuthorFullDTO con los datos nuevos
-     * @return Objeto de AuthorFullDTOcon los datos nuevos y su ID.
+     * @param dto Objeto de AuthorBasicDTO con los datos nuevos
+     * @return Objeto de AuthorBasicDTOcon los datos nuevos y su ID.
      * @generated
      */
     @POST
     @StatusCreated
-    public AuthorFullDTO createAuthor(AuthorFullDTO dto) {
-        return new AuthorFullDTO(authorLogic.createAuthor(dto.toEntity()));
+    public AuthorBasicDTO createAuthor(AuthorBasicDTO dto) {
+        return new AuthorBasicDTO(authorLogic.createAuthor(dto.toEntity()));
     }
 
     /**
      * Actualiza la información de una instancia de Book.
      *
      * @param id Identificador de la instancia de Book a modificar
-     * @param dto Instancia de AuthorFullDTO con los nuevos datos.
-     * @return Instancia de AuthorFullDTO con los datos actualizados.
+     * @param dto Instancia de AuthorBasicDTO con los nuevos datos.
+     * @return Instancia de AuthorBasicDTO con los datos actualizados.
      * @generated
      */
     @PUT
     @Path("{id: \\d+}")
-    public AuthorFullDTO updateAuthor(@PathParam("id") Long id, AuthorFullDTO dto) {
+    public AuthorBasicDTO updateAuthor(@PathParam("id") Long id, AuthorBasicDTO dto) {
         AuthorEntity entity = dto.toEntity();
         entity.setId(id);
         AuthorEntity oldEntity = authorLogic.getAuthor(id);
         entity.setBooks(oldEntity.getBooks());
-        return new AuthorFullDTO(authorLogic.updateAuthor(entity));
+        return new AuthorBasicDTO(authorLogic.updateAuthor(entity));
     }
 
     /**
@@ -177,8 +175,8 @@ public class AuthorService {
      */
     @GET
     @Path("{authorId: \\d+}/books/{bookId: \\d+}")
-    public BookFullDTO getBooks(@PathParam("authorId") Long authorId, @PathParam("bookId") Long bookId) {
-        return new BookFullDTO(authorLogic.getBooks(authorId, bookId));
+    public BookBasicDTO getBooks(@PathParam("authorId") Long authorId, @PathParam("bookId") Long bookId) {
+        return new BookBasicDTO(authorLogic.getBooks(authorId, bookId));
     }
 
     /**
@@ -186,13 +184,13 @@ public class AuthorService {
      *
      * @param authorId Identificador de la instancia de Author
      * @param bookId Identificador de la instancia de Book
-     * @return Instancia de BookFullDTO que fue asociada a Author
+     * @return Instancia de BookBasicDTO que fue asociada a Author
      * @generated
      */
     @POST
     @Path("{authorId: \\d+}/books/{bookId: \\d+}")
-    public BookFullDTO addBooks(@PathParam("authorId") Long authorId, @PathParam("bookId") Long bookId) {
-        return new BookFullDTO(authorLogic.addBooks(authorId, bookId));
+    public BookBasicDTO addBooks(@PathParam("authorId") Long authorId, @PathParam("bookId") Long bookId) {
+        return new BookBasicDTO(authorLogic.addBooks(authorId, bookId));
     }
 
     /**

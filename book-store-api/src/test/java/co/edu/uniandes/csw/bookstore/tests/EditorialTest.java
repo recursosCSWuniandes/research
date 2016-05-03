@@ -25,7 +25,7 @@ package co.edu.uniandes.csw.bookstore.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
-import co.edu.uniandes.csw.bookstore.dtos.full.EditorialFullDTO;
+import co.edu.uniandes.csw.bookstore.dtos.basic.EditorialBasicDTO;
 import co.edu.uniandes.csw.bookstore.dtos.minimum.EditorialMinimumDTO;
 import co.edu.uniandes.csw.bookstore.dtos.minimum.BookMinimumDTO;
 import co.edu.uniandes.csw.bookstore.resources.EditorialService;
@@ -109,7 +109,7 @@ public class EditorialTest {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
-            EditorialFullDTO editorial = factory.manufacturePojo(EditorialFullDTO.class);
+            EditorialBasicDTO editorial = factory.manufacturePojo(EditorialBasicDTO.class);
             editorial.setId(i + 1L);
 
             oraculo.add(editorial);
