@@ -1,0 +1,22 @@
+<div class="col-sm-12">
+    <div ng-repeat="record in records" ui-sref="book.instance.details({id: record.id})">
+        <div class="col-md-4 col-sm-6 col-lg-3 well text-center">
+            <div class="col-md-12">
+                <div class="img-thumbnail" id="image" ng-if="record.image">
+                    <img class="img-responsive" style="height: 20vmax;" ng-src="{{record.image}}" alt="{{record.image}}">
+                </div>
+            </div>
+            <div class="caption" >
+                <p><strong>Name:</strong> <span id="{{$index}}-name">{{record.name}}</span></p>
+                <p><strong>Description:</strong> <span id="{{$index}}-description">{{record.description}}</span></p>
+                <p><strong>ISBN:</strong> <span id="{{$index}}-isbn">{{record.isbn}}</span></p>
+                <p><strong>Publish Date:</strong> <span id="{{$index}}-publishDate">{{record.publishDate| date}}</span></p>
+                <p><strong>Editorial:</strong> <span id="{{$index}}-publishDate">{{record.editorial.name}}</span></p>
+            </div>
+            <p class="text-center">
+                <a ui-sref="book.instance.edit({id: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                <a ui-sref="book.instance.delete({id: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
+            </p>
+        </div>
+    </div>
+</div>

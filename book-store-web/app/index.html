@@ -69,6 +69,12 @@ SOFTWARE.
         <script src="src/modules/review/review.mod.js"></script>
         <script src="src/modules/author/author.ctrl.js"></script>
         <script src="src/modules/book/book.ctrl.js"></script>
+        <script src="src/modules/book/instance/book.instance.ctrl.js"></script>
+        <script src="src/modules/book/instance/delete/book.delete.ctrl.js"></script>
+        <script src="src/modules/book/instance/details/book.detail.ctrl.js"></script>
+        <script src="src/modules/book/instance/edit/book.edit.ctrl.js"></script>
+        <script src="src/modules/book/list/book.list.ctrl.js"></script>
+        <script src="src/modules/book/new/book.new.ctrl.js"></script>
         <script src="src/modules/editorial/editorial.ctrl.js"></script>
         <!-- /include -->
         <!-- endbuild -->
@@ -93,7 +99,7 @@ SOFTWARE.
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="main-bar">
                             <ul class="nav navbar-nav">
-                                <li><a ui-sref="book">Book</a></li>
+                                <li><a ui-sref="book.list">Book</a></li>
                                 <li><a ui-sref="author">Author</a></li>
                                 <li><a ui-sref="editorial">Editorial</a></li>
                             </ul>

@@ -1,0 +1,5 @@
+<div id="book-header">
+    <toolbar name="'books'" display-name="'Books'" actions='actions'></toolbar>
+</div>
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="ctrl.closeAlert($index)" dismiss-on-timeout="5000">{{alert.msg}} </alert>
+<div ui-view="bookView"></div>

@@ -1,0 +1,20 @@
+<div class="well">
+    <div class="col-md-12">
+        <div class="img-thumbnail" id="image" ng-if="currentRecord.image">
+            <a ng-href="{{currentRecord.image}}" target="_blank">
+                <img class="img-responsive" ng-src="{{currentRecord.image}}" alt="{{currentRecord.image}}">
+            </a>
+        </div>
+    </div>
+    <div class="caption" >
+        <p><strong>Name:</strong> <span id="{{$index}}-name">{{currentRecord.name}}</span></p>
+        <p><strong>Description:</strong> <span id="{{$index}}-description">{{currentRecord.description}}</span></p>
+        <p><strong>ISBN:</strong> <span id="{{$index}}-isbn">{{currentRecord.isbn}}</span></p>
+        <p><strong>Publish Date:</strong> <span id="{{$index}}-publishDate">{{currentRecord.publishDate| date}}</span></p>
+        <p><strong>Editorial:</strong> <span id="{{$index}}-publishDate">{{currentRecord.editorial.name}}</span></p>
+    </div>
+    <p class="text-center">
+        <a ui-sref="book.instance.edit({id: currentRecord.id})" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+        <a ui-sref="book.instance.delete({id: currentRecord.id})" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
+    </p>
+</div>

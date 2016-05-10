@@ -1,66 +1,105 @@
 /*
-The MIT License (MIT)
+ The MIT License (MIT)
 
-Copyright (c) 2015 Los Andes University
+ Copyright (c) 2015 Los Andes University
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 (function (ng) {
     var mod = ng.module('bookModule');
 
-    mod.controller('bookCtrl', ['CrudCreator', '$scope', 'bookModel',
-        function (ngCrud, $scope, model) {
-            ngCrud.extendController({
-                ctrl: this,
-                scope: $scope,
-                model: model,
-                name: model.name,
-                displayName: model.displayName,
-                url: model.url
-            });
-            this.loadRefOptions();
-            this.fetchRecords();
-        }]);
+    mod.controller('bookCtrl', ['$scope', '$state',
+        function ($scope, $state) {
+            var isReadState = $state.is('book.list') || $state.is('book.instance.details');
+            $scope.actions = {
+                create: {
+                    displayName: 'Create',
+                    icon: 'plus',
+                    fn: function () {
+                        $state.go('book.new');
+                    },
+                    show: function () {
+                        return isReadState;
+                    }
+                },
+                refresh: {
+                    displayName: 'Refresh',
+                    icon: 'refresh',
+                    fn: function () {
+                        $state.reload();
+                    },
+                    show: function () {
+                        return isReadState;
+                    }
+                },
+                cancel: {
+                    displayName: 'Cancel',
+                    icon: 'remove',
+                    fn: function () {
+                        $state.go('book.list');
+                    },
+                    show: function () {
+                        return !isReadState;
+                    }
+                }
+            };
+            //Alertas
+            $scope.alerts = [];
+            this.closeAlert = function (index) {
+                $scope.alerts.splice(index, 1);
+            };
 
-    mod.controller('BooksauthorsCtrl', ['CrudCreator', '$scope',
-        'authorModel', 'authorContext', 'bookContext',
-        function (ngCrud, $scope, model, url, parentUrl) {
-            ngCrud.extendAggChildCtrl({
-                name: 'authors',
-                displayName: 'Authors',
-                parentUrl: parentUrl,
-                listUrl: url,
-                ctrl: this,
-                scope: $scope,
-                model: model
-            });
-        }]);
+            // Función showMessage: Recibe el mensaje en String y su tipo con el fin de almacenarlo en el array $scope.alerts.
+            function showMessage(msg, type) {
+                var types = ["info", "danger", "warning", "success"];
+                if (types.some(function (rc) {
+                    return type === rc;
+                })) {
+                    $scope.alerts.push({type: type, msg: msg});
+                }
+            }
 
-    mod.controller('BookreviewsCtrl', ['CrudCreator', '$scope', 'reviewModel',
-        function (ngCrud, $scope, model) {
-            ngCrud.extendCompChildCtrl({
-                name: 'reviews',
-                displayName: 'Reviews',
-                parent: 'book',
-                ctrl: this,
-                scope: $scope,
-                model: model
-            });
+            $scope.showError = function (msg) {
+                showMessage(msg, "danger");
+            };
+
+            $scope.showSuccess = function (msg) {
+                showMessage(msg, "success");
+            };
+
+            $scope.responseError = function (response) {
+                $scope.showError(response.data);
+            };
+
+            $scope.today = function () {
+                $scope.value = new Date();
+            };
+
+            $scope.clear = function () {
+                $scope.value = null;
+            };
+
+            $scope.open = function ($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+
+                $scope.opened = true;
+            };
         }]);
 })(window.angular);
