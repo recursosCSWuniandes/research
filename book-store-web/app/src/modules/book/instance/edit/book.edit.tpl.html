@@ -2,3 +2,11 @@
     <toolbar name="'books'" display-name="'Books'" actions='actions'></toolbar>
 </header>
 <crud-form name="'bookForm'" fields='fields' record='currentRecord'></crud-form>
+<tabset>
+    <tab heading="Reviews" select="go('reviews')">
+        <div ui-view="reviewView"></div>
+    </tab>
+    <tab heading='Authors' select="go('authors')">
+        <div ui-view="authorsView"></div>
+    </tab>
+</tabset>

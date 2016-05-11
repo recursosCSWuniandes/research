@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 (function (ng) {
-    var mod = ng.module('reviewModule', ['ngCrud', 'ui.router']);
+    var mod = ng.module('reviewModule', ['ngCrud', 'ui.router', 'reviewModule']);
 
     mod.constant('reviewContext', 'reviews');
 
@@ -47,15 +47,78 @@
                 required: true
             }]});
 
-    mod.config(['$stateProvider', 'CrudTemplateURL', 'CrudCtrlAlias',
-        function ($stateProvider, tplUrl, alias) {
-            $stateProvider.state('review', {
-                url: '/review',
+    mod.config(['$stateProvider', function ($stateProvider) {
+            var basePath = 'src/modules/review/';
+            $stateProvider.state('book.instance.edit.reviews', {
+                url: '/reviews',
+                abstract: true,
                 views: {
-                    mainView: {
-                        templateUrl: tplUrl,
-                        controller: 'reviewCtrl',
-                        controllerAs: alias
+                    reviewView: {
+                        templateUrl: basePath + 'review.tpl.html',
+                        controller: 'reviewCtrl'
+                    }
+                },
+                resolve: {
+                    reviews: ['book', function (book) {
+                            return book.getList('reviews');
+                        }]
+                }
+            }).state('book.instance.edit.reviews.list', {
+                url: '/list',
+                views: {
+                    reviewView: {
+                        templateUrl: basePath + 'list/review.list.tpl.html',
+                        controller: 'reviewListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            }).state('book.instance.edit.reviews.new', {
+                url: '/new',
+                views: {
+                    reviewView: {
+                        templateUrl: basePath + 'new/review.new.tpl.html',
+                        controller: 'reviewNewCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            }).state('book.instance.edit.reviews.instance', {
+                url: '/{id:int}',
+                abstract: true,
+                views: {
+                    reviewView: {
+                        template: '<div ui-view="reviewDetailsView"></div>',
+                        controller: 'reviewInstanceCtrl'
+                    }
+                },
+                resolve: {
+                    review: ['reviews', '$stateParams', function (reviews, $params) {
+                            return reviews.get($params.id);
+                        }]
+                }
+            }).state('book.instance.edit.reviews.instance.details', {
+                url: '/',
+                views: {
+                    reviewDetailsView: {
+                        templateUrl: basePath + 'instance/details/review.detail.tpl.html',
+                        controller: 'reviewDetailCtrl'
+                    }
+                }
+            }).state('book.instance.edit.reviews.instance.edit', {
+                url: '/edit',
+                views: {
+                    reviewDetailsView: {
+                        templateUrl: basePath + 'instance/edit/review.edit.tpl.html',
+                        controller: 'reviewEditCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            }).state('book.instance.edit.reviews.instance.delete', {
+                url: '/delete',
+                views: {
+                    reviewDetailsView: {
+                        templateUrl: basePath + 'instance/delete/review.delete.tpl.html',
+                        controller: 'reviewDeleteCtrl',
+                        controllerAs: 'ctrl'
                     }
                 }
             });

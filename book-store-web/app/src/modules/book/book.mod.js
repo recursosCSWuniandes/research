@@ -150,6 +150,7 @@
                 }
             }).state('book.instance.edit', {
                 url: '/edit',
+                sticky: true,
                 views: {
                     bookDetailsView: {
                         templateUrl: basePath + 'instance/edit/book.edit.tpl.html',

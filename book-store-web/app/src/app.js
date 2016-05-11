@@ -30,6 +30,7 @@
         'editorialModule',
         'authModule',
         'ui.router',
+        'ct.ui.router.extras',
         'ngCrud'
     ]);
 

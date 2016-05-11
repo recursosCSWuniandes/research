@@ -6,6 +6,9 @@
         function ($scope, $state, book, model) {
             $scope.currentRecord = book;
             $scope.fields = model.fields;
+            $scope.go = function (child) {
+                $state.go('book.instance.edit.' + child + '.list');
+            };
             $scope.actions = {
                 save: {
                     displayName: 'Save',
