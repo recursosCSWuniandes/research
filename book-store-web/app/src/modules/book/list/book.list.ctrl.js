@@ -2,10 +2,23 @@
 
     var mod = ng.module("bookModule");
 
-    mod.controller("bookListCtrl", ["$scope", 'books', function ($scope, books) {
+    mod.controller("bookListCtrl", ["$scope", 'books', '$state', function ($scope, books, $state) {
             $scope.records = books;
-            this.refresh = function () {
-                $scope.records = books.getList().$object;
+            $scope.actions = {
+                create: {
+                    displayName: 'Create',
+                    icon: 'plus',
+                    fn: function () {
+                        $state.go('book.new');
+                    }
+                },
+                refresh: {
+                    displayName: 'Refresh',
+                    icon: 'refresh',
+                    fn: function () {
+                        $state.reload();
+                    }
+                }
             };
         }]);
 

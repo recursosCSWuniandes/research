@@ -24,48 +24,16 @@
 (function (ng) {
     var mod = ng.module('bookModule');
 
-    mod.controller('bookCtrl', ['$scope', '$state',
-        function ($scope, $state) {
-            var isReadState = $state.is('book.list') || $state.is('book.instance.details');
-            $scope.actions = {
-                create: {
-                    displayName: 'Create',
-                    icon: 'plus',
-                    fn: function () {
-                        $state.go('book.new');
-                    },
-                    show: function () {
-                        return isReadState;
-                    }
-                },
-                refresh: {
-                    displayName: 'Refresh',
-                    icon: 'refresh',
-                    fn: function () {
-                        $state.reload();
-                    },
-                    show: function () {
-                        return isReadState;
-                    }
-                },
-                cancel: {
-                    displayName: 'Cancel',
-                    icon: 'remove',
-                    fn: function () {
-                        $state.go('book.list');
-                    },
-                    show: function () {
-                        return !isReadState;
-                    }
-                }
-            };
+    mod.controller('bookCtrl', ['$scope', function ($scope) {
             //Alertas
             $scope.alerts = [];
             this.closeAlert = function (index) {
                 $scope.alerts.splice(index, 1);
             };
 
-            // Función showMessage: Recibe el mensaje en String y su tipo con el fin de almacenarlo en el array $scope.alerts.
+            /* Función showMessage: Recibe el mensaje en String y
+             * su tipo con el fin de almacenarlo en el array $scope.alerts.
+             */
             function showMessage(msg, type) {
                 var types = ["info", "danger", "warning", "success"];
                 if (types.some(function (rc) {
@@ -81,10 +49,6 @@
 
             $scope.showSuccess = function (msg) {
                 showMessage(msg, "success");
-            };
-
-            $scope.responseError = function (response) {
-                $scope.showError(response.data);
             };
 
             $scope.today = function () {

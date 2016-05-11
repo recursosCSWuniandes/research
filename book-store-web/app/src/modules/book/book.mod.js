@@ -50,7 +50,7 @@
             image: {
                 name: 'image',
                 displayName: 'Image',
-                type: 'String',
+                type: 'Image',
                 required: true
             },
             publishDate: {
@@ -63,7 +63,7 @@
                 name: 'editorial',
                 displayName: 'Editorial',
                 type: 'Reference',
-                url: 'editorialContext',
+                url: 'editorialModel',
                 options: [],
                 required: true
             }
@@ -95,9 +95,6 @@
                     }
                 },
                 resolve: {
-                    books: ['Restangular', 'model', function (r, model) {
-                            return r.all(model.url).getList();
-                        }],
                     references: ['$q', 'Restangular', function ($q, r) {
                             return $q.all({
                                 editorials: r.all('editorials').getList()
@@ -105,6 +102,10 @@
                         }],
                     model: ['bookModel', 'references', function (model, references) {
                             model.fields.editorial.options = references.editorials;
+                            return model;
+                        }],
+                    books: ['Restangular', 'model', function (r, model) {
+                            return r.all(model.url).getList();
                         }]
                 }
             }).state('book.list', {

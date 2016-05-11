@@ -6,20 +6,22 @@
         function ($scope, $state, book, model) {
             $scope.currentRecord = book;
             $scope.fields = model.fields;
-            this.saveRecord = function (record) {
-                record.put().then(function () {
-                    $state.go('book.list', null, {reload: true});
-                });
-            };
-            var self = this;
-            $scope.actions.save = {
-                displayName: 'Save',
-                icon: 'save',
-                fn: function () {
-                    self.saveRecord($scope.currentRecord);
+            $scope.actions = {
+                save: {
+                    displayName: 'Save',
+                    icon: 'save',
+                    fn: function () {
+                        $scope.currentRecord.put().then(function () {
+                            $state.go('book.list', null, {reload: true});
+                        });
+                    }
                 },
-                show: function () {
-                    return true;
+                cancel: {
+                    displayName: 'Cancel',
+                    icon: 'remove',
+                    fn: function () {
+                        $state.go('book.list');
+                    }
                 }
             };
         }]);
