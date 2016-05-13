@@ -63,7 +63,8 @@
                 resolve: {
                     reviews: ['book', function (book) {
                             return book.getList('reviews');
-                        }]
+                        }],
+                    model: 'reviewModel'
                 }
             }).state('book.instance.edit.reviews.list', {
                 url: '/list',
@@ -88,8 +89,7 @@
                 abstract: true,
                 views: {
                     reviewView: {
-                        template: '<div ui-view="reviewDetailsView"></div>',
-                        controller: 'reviewInstanceCtrl'
+                        template: '<div ui-view="reviewDetailsView"></div>'
                     }
                 },
                 resolve: {
