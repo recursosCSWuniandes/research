@@ -30,22 +30,24 @@
         name: 'review',
         displayName: 'Review',
         url: 'reviews',
-        fields: [{
-                name: 'name',
+        fields: {
+            name: {
                 displayName: 'Name',
                 type: 'String',
                 required: true
-            }, {
-                name: 'source',
+            },
+            source: {
                 displayName: 'Source',
                 type: 'String',
                 required: true
-            }, {
-                name: 'description',
+            },
+            description: {
                 displayName: 'Description',
                 type: 'String',
                 required: true
-            }]});
+            }
+        }
+    });
 
     mod.config(['$stateProvider', function ($stateProvider) {
             var basePath = 'src/modules/review/';
@@ -82,7 +84,7 @@
                     }
                 }
             }).state('book.instance.edit.reviews.instance', {
-                url: '/{id:int}',
+                url: '/{reviewId:int}',
                 abstract: true,
                 views: {
                     reviewView: {
@@ -92,7 +94,7 @@
                 },
                 resolve: {
                     review: ['reviews', '$stateParams', function (reviews, $params) {
-                            return reviews.get($params.id);
+                            return reviews.get($params.reviewId);
                         }]
                 }
             }).state('book.instance.edit.reviews.instance.details', {

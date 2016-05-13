@@ -17,8 +17,8 @@
                 <p><strong>Editorial:</strong> <span id="{{$index}}-publishDate">{{record.editorial.name}}</span></p>
             </div>
             <p class="text-center">
-                <a ui-sref="book.instance.edit({id: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                <a ui-sref="book.instance.delete({id: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
+                <a ui-sref="book.instance.edit({bookId: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                <a ui-sref="book.instance.delete({bookId: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
             </p>
         </div>
     </div>

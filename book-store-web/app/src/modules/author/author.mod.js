@@ -30,17 +30,19 @@
         name: 'author',
         displayName: 'Author',
         url: 'authors',
-        fields: [{
+        fields: {
+            name: {
                 name: 'name',
                 displayName: 'Name',
                 type: 'String',
                 required: true
-            }, {
+            },
+            birthDate: {
                 name: 'birthDate',
                 displayName: 'Birth Date',
                 type: 'Date',
                 required: true
-            }],
+            }},
         childs: [{
                 name: 'books',
                 displayName: 'Books',

@@ -14,9 +14,11 @@
                     displayName: 'Save',
                     icon: 'save',
                     fn: function () {
-                        $scope.currentRecord.put().then(function () {
-                            $state.go('book.list', null, {reload: true});
-                        });
+                        if ($scope.bookForm.$valid) {
+                            $scope.currentRecord.put().then(function () {
+                                $state.go('book.list', null, {reload: true});
+                            });
+                        }
                     }
                 },
                 cancel: {

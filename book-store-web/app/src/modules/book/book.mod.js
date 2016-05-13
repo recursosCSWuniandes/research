@@ -30,37 +30,31 @@
         url: 'books',
         fields: {
             name: {
-                name: 'name',
                 displayName: 'Name',
                 type: 'String',
                 required: true
             },
             description: {
-                name: 'description',
                 displayName: 'Description',
                 type: 'String',
                 required: true
             },
             isbn: {
-                name: 'isbn',
                 displayName: 'Isbn',
                 type: 'String',
                 required: true
             },
             image: {
-                name: 'image',
                 displayName: 'Image',
                 type: 'Image',
                 required: true
             },
             publishDate: {
-                name: 'publishDate',
                 displayName: 'Publish Date',
                 type: 'Date',
                 required: true
             },
             editorial: {
-                name: 'editorial',
                 displayName: 'Editorial',
                 type: 'Reference',
                 url: 'editorialModel',
@@ -127,7 +121,7 @@
                     }
                 }
             }).state('book.instance', {
-                url: '/{id:int}',
+                url: '/{bookId:int}',
                 abstract: true,
                 views: {
                     bookView: {
@@ -137,7 +131,7 @@
                 },
                 resolve: {
                     book: ['books', '$stateParams', function (books, $params) {
-                            return books.get($params.id);
+                            return books.get($params.bookId);
                         }]
                 }
             }).state('book.instance.details', {

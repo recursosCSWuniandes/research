@@ -30,12 +30,13 @@
         name: 'editorial',
         displayName: 'Editorial',
         url: 'editorials',
-        fields: [{
-                name: 'name',
+        fields: {
+            name: {
                 displayName: 'Name',
                 type: 'String',
                 required: true
-            }],
+            }
+        },
         childs: [{
                 name: 'books',
                 displayName: 'Books',

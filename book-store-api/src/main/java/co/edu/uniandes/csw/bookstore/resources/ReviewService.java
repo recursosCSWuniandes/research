@@ -3,8 +3,8 @@ package co.edu.uniandes.csw.bookstore.resources;
 import co.edu.uniandes.csw.bookstore.api.IReviewLogic;
 import co.edu.uniandes.csw.bookstore.dtos.basic.ReviewBasicDTO;
 import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
+import java.util.ArrayList;
 import java.util.List;
-import static java.util.stream.Collectors.toList;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -22,11 +22,19 @@ public class ReviewService {
 
     @Inject
     private IReviewLogic logic;
+    
+    private List<ReviewBasicDTO> listEntity2DTO(List<ReviewEntity> entities){
+        List<ReviewBasicDTO> dtos = new ArrayList<>();
+        for (ReviewEntity entity : entities) {
+            dtos.add(new ReviewBasicDTO(entity));
+        }
+        return dtos;
+    }
 
     @GET
     public List<ReviewBasicDTO> getReviews(@PathParam("bookId") Long bookId) {
         List<ReviewEntity> reviews = logic.getReviews(bookId);
-        return reviews.parallelStream().map(ReviewBasicDTO::new).collect(toList());
+        return listEntity2DTO(reviews);
     }
 
     @GET

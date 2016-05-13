@@ -20,23 +20,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bookstore.dtos.basic;
 
 import co.edu.uniandes.csw.bookstore.dtos.minimum.*;
 import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
 import javax.xml.bind.annotation.XmlRootElement;
-import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * @generated
  */
 @XmlRootElement
-public class ReviewBasicDTO extends ReviewMinimumDTO{
-
-
-    @PodamExclude
-    private BookMinimumDTO book;
+public class ReviewBasicDTO extends ReviewMinimumDTO {
 
     /**
      * @generated
@@ -51,10 +46,6 @@ public class ReviewBasicDTO extends ReviewMinimumDTO{
      */
     public ReviewBasicDTO(ReviewEntity entity) {
         super(entity);
-        if (entity.getBook()!=null){
-        this.book = new BookMinimumDTO(entity.getBook());
-        }
-        
     }
 
     /**
@@ -62,25 +53,6 @@ public class ReviewBasicDTO extends ReviewMinimumDTO{
      */
     @Override
     public ReviewEntity toEntity() {
-        ReviewEntity entity = super.toEntity();
-        if (this.getBook()!=null){
-        entity.setBook(this.getBook().toEntity());
-        }
-        return entity;
+        return super.toEntity();
     }
-
-    /**
-     * @generated
-     */
-    public BookMinimumDTO getBook() {
-        return book;
-    }
-
-    /**
-     * @generated
-     */
-    public void setBook(BookMinimumDTO book) {
-        this.book = book;
-    }
-
 }

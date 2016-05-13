@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bookstore.dtos.minimum;
 
 import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
@@ -48,12 +48,12 @@ public class ReviewMinimumDTO {
      * @generated
      */
     public ReviewMinimumDTO(ReviewEntity entity) {
-	   if (entity!=null){
-        this.id=entity.getId();
-        this.name=entity.getName();
-        this.source=entity.getSource();
-        this.description=entity.getDescription();
-       }
+        if (entity != null) {
+            this.id = entity.getId();
+            this.name = entity.getName();
+            this.source = entity.getSource();
+            this.description = entity.getDescription();
+        }
     }
 
     /**
@@ -65,7 +65,7 @@ public class ReviewMinimumDTO {
         entity.setName(this.getName());
         entity.setSource(this.getSource());
         entity.setDescription(this.getDescription());
-    return entity;
+        return entity;
     }
 
     /**
