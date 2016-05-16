@@ -36,24 +36,82 @@
                 type: 'String',
                 required: true
             }
-        },
-        childs: [{
-                name: 'books',
-                displayName: 'Books',
-                //template: '', //override generic template
-                ctrl: 'EditorialbooksCtrl',
-                owned: false
-            }]});
+        }});
 
-    mod.config(['$stateProvider', 'CrudTemplateURL', 'CrudCtrlAlias',
-        function ($stateProvider, tplUrl, alias) {
+    mod.config(['$stateProvider',
+        function ($stateProvider) {
+            var basePath = 'src/modules/editorial/';
             $stateProvider.state('editorial', {
                 url: '/editorial',
+                abstract: true,
                 views: {
                     mainView: {
-                        templateUrl: tplUrl,
-                        controller: 'editorialCtrl',
-                        controllerAs: alias
+                        templateUrl: basePath + 'editorial.tpl.html',
+                        controller: 'editorialCtrl'
+                    }
+                },
+                resolve: {
+                    model: 'editorialModel',
+                    editorials: ['Restangular', 'model', function (r, model) {
+                            return r.all(model.url).getList();
+                        }]
+                }
+            }).state('editorial.list', {
+                url: '/list',
+                views: {
+                    editorialView: {
+                        templateUrl: basePath + 'list/editorial.list.tpl.html',
+                        controller: 'editorialListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            }).state('editorial.new', {
+                url: '/new',
+                views: {
+                    editorialView: {
+                        templateUrl: basePath + 'new/editorial.new.tpl.html',
+                        controller: 'editorialNewCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            }).state('editorial.instance', {
+                url: '/{editorialId:int}',
+                abstract: true,
+                views: {
+                    editorialView: {
+                        template: '<div ui-view="editorialDetailsView"></div>'
+                    }
+                },
+                resolve: {
+                    editorial: ['editorials', '$stateParams', function (editorials, $params) {
+                            return editorials.get($params.editorialId);
+                        }]
+                }
+            }).state('editorial.instance.details', {
+                url: '/',
+                views: {
+                    editorialDetailsView: {
+                        templateUrl: basePath + 'instance/details/editorial.detail.tpl.html',
+                        controller: 'editorialDetailCtrl'
+                    }
+                }
+            }).state('editorial.instance.edit', {
+                url: '/edit',
+                sticky: true,
+                views: {
+                    editorialDetailsView: {
+                        templateUrl: basePath + 'instance/edit/editorial.edit.tpl.html',
+                        controller: 'editorialEditCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            }).state('editorial.instance.delete', {
+                url: '/delete',
+                views: {
+                    editorialDetailsView: {
+                        templateUrl: basePath + 'instance/delete/editorial.delete.tpl.html',
+                        controller: 'editorialDeleteCtrl',
+                        controllerAs: 'ctrl'
                     }
                 }
             });

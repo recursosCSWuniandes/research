@@ -21,20 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 (function (ng) {
 
-    var mod = ng.module("authorModule");
+    var mod = ng.module("editorialModule");
 
-    mod.controller("authorListCtrl", ["$scope", 'authors', '$state', 'authorModel',
-        function ($scope, authors, $state, model) {
-            $scope.records = authors;
+    mod.controller("editorialListCtrl", ["$scope", 'editorials', '$state', 'editorialModel',
+        function ($scope, editorials, $state, model) {
+            $scope.records = editorials;
             $scope.fields = model.fields;
             $scope.actions = {
                 create: {
                     displayName: 'Create',
                     icon: 'plus',
                     fn: function () {
-                        $state.go('author.new');
+                        $state.go('editorial.new');
                     }
                 },
                 refresh: {
@@ -50,7 +51,7 @@
                     displayName: 'Edit',
                     icon: 'edit',
                     fn: function (rc) {
-                        $state.go('author.instance.edit', {authorId: rc.id});
+                        $state.go('editorial.instance.edit', {editorialId: rc.id});
                     },
                     show: function () {
                         return true;
@@ -60,7 +61,7 @@
                     displayName: 'Delete',
                     icon: 'minus',
                     fn: function (rc) {
-                        $state.go('author.instance.delete', {authorId: rc.id});
+                        $state.go('editorial.instance.delete', {editorialId: rc.id});
                     },
                     show: function () {
                         return true;

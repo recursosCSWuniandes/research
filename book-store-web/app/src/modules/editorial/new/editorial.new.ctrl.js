@@ -21,52 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+
+
 (function (ng) {
 
-    var mod = ng.module("authorModule");
+    var mod = ng.module("editorialModule");
 
-    mod.controller("authorListCtrl", ["$scope", 'authors', '$state', 'authorModel',
-        function ($scope, authors, $state, model) {
-            $scope.records = authors;
+    mod.controller("editorialNewCtrl", ["$scope", "$state", "editorials", "model",
+        function ($scope, $state, editorials, model) {
             $scope.fields = model.fields;
+            $scope.currentRecord = {};
             $scope.actions = {
-                create: {
-                    displayName: 'Create',
-                    icon: 'plus',
+                save: {
+                    displayName: 'Save',
+                    icon: 'save',
                     fn: function () {
-                        $state.go('author.new');
+                        if ($scope.editorialForm.$valid) {
+                            editorials.post($scope.currentRecord).then(function () {
+                                $state.go('editorial.list', null, {reload: true});
+                            });
+                        }
                     }
                 },
-                refresh: {
-                    displayName: 'Refresh',
-                    icon: 'refresh',
+                cancel: {
+                    displayName: 'Cancel',
+                    icon: 'remove',
                     fn: function () {
-                        $state.reload();
-                    }
-                }
-            };
-            $scope.recordActions = {
-                edit: {
-                    displayName: 'Edit',
-                    icon: 'edit',
-                    fn: function (rc) {
-                        $state.go('author.instance.edit', {authorId: rc.id});
-                    },
-                    show: function () {
-                        return true;
-                    }
-                },
-                delete: {
-                    displayName: 'Delete',
-                    icon: 'minus',
-                    fn: function (rc) {
-                        $state.go('author.instance.delete', {authorId: rc.id});
-                    },
-                    show: function () {
-                        return true;
+                        $state.go('editorial.list');
                     }
                 }
             };
         }]);
-
 })(window.angular);
