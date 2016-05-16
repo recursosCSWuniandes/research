@@ -47,19 +47,84 @@
                 name: 'books',
                 displayName: 'Books',
                 //template: '', //override generic template
-                ctrl: 'AuthorsbooksCtrl',
+                ctrl: 'AuthorsauthorsCtrl',
                 owned: false
             }]});
 
-    mod.config(['$stateProvider', 'CrudTemplateURL', 'CrudCtrlAlias',
-        function ($stateProvider, tplUrl, alias) {
+    mod.config(['$stateProvider',
+        function ($stateProvider) {
+            var basePath = 'src/modules/author/';
             $stateProvider.state('author', {
                 url: '/author',
+                abstract: true,
                 views: {
                     mainView: {
-                        templateUrl: tplUrl,
-                        controller: 'authorCtrl',
-                        controllerAs: alias
+                        templateUrl: basePath + 'author.tpl.html',
+                        controller: 'authorCtrl'
+                    }
+                },
+                resolve: {
+                    model: 'authorModel',
+                    authors: ['Restangular', 'model', function (r, model) {
+                            return r.all(model.url).getList();
+                        }]
+                }
+            }).state('author.list', {
+                url: '/list',
+                views: {
+                    authorView: {
+                        templateUrl: basePath + 'list/author.list.tpl.html',
+                        controller: 'authorListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            }).state('author.new', {
+                url: '/new',
+                views: {
+                    authorView: {
+                        templateUrl: basePath + 'new/author.new.tpl.html',
+                        controller: 'authorNewCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            }).state('author.instance', {
+                url: '/{authorId:int}',
+                abstract: true,
+                views: {
+                    authorView: {
+                        template: '<div ui-view="authorDetailsView"></div>'
+                    }
+                },
+                resolve: {
+                    author: ['authors', '$stateParams', function (authors, $params) {
+                            return authors.get($params.authorId);
+                        }]
+                }
+            }).state('author.instance.details', {
+                url: '/',
+                views: {
+                    authorDetailsView: {
+                        templateUrl: basePath + 'instance/details/author.detail.tpl.html',
+                        controller: 'authorDetailCtrl'
+                    }
+                }
+            }).state('author.instance.edit', {
+                url: '/edit',
+                sticky: true,
+                views: {
+                    authorDetailsView: {
+                        templateUrl: basePath + 'instance/edit/author.edit.tpl.html',
+                        controller: 'authorEditCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            }).state('author.instance.delete', {
+                url: '/delete',
+                views: {
+                    authorDetailsView: {
+                        templateUrl: basePath + 'instance/delete/author.delete.tpl.html',
+                        controller: 'authorDeleteCtrl',
+                        controllerAs: 'ctrl'
                     }
                 }
             });

@@ -24,7 +24,8 @@
 (function (ng) {
     var mod = ng.module('bookModule');
 
-    mod.controller('bookCtrl', ['$scope', function ($scope) {
+    mod.controller('bookCtrl', ['$scope', 'references', function ($scope, references) {
+            $scope.references = references;
             //Alertas
             $scope.alerts = [];
             this.closeAlert = function (index) {
@@ -49,21 +50,6 @@
 
             $scope.showSuccess = function (msg) {
                 showMessage(msg, "success");
-            };
-
-            $scope.today = function () {
-                $scope.value = new Date();
-            };
-
-            $scope.clear = function () {
-                $scope.value = null;
-            };
-
-            $scope.open = function ($event) {
-                $event.preventDefault();
-                $event.stopPropagation();
-
-                $scope.opened = true;
             };
         }]);
 })(window.angular);

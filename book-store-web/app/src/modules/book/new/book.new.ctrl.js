@@ -2,9 +2,9 @@
 
     var mod = ng.module("bookModule");
 
-    mod.controller("bookNewCtrl", ["$scope", "$state", "books", "references",
-        function ($scope, $state, books, references) {
-            $scope.editorials = references.editorials;
+    mod.controller("bookNewCtrl", ["$scope", "$state", "books", 'model',
+        function ($scope, $state, books, model) {
+            $scope.fields = model.fields;
             $scope.actions = {
                 save: {
                     displayName: 'Save',

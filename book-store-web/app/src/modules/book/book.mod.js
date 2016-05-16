@@ -91,13 +91,10 @@
                 resolve: {
                     references: ['$q', 'Restangular', function ($q, r) {
                             return $q.all({
-                                editorials: r.all('editorials').getList()
+                                editorial: r.all('editorials').getList()
                             });
                         }],
-                    model: ['bookModel', 'references', function (model, references) {
-                            model.fields.editorial.options = references.editorials;
-                            return model;
-                        }],
+                    model: 'bookModel',
                     books: ['Restangular', 'model', function (r, model) {
                             return r.all(model.url).getList();
                         }]
@@ -125,8 +122,7 @@
                 abstract: true,
                 views: {
                     bookView: {
-                        template: '<div ui-view="bookDetailsView"></div>',
-                        controller: 'bookInstanceCtrl'
+                        template: '<div ui-view="bookDetailsView"></div>'
                     }
                 },
                 resolve: {
