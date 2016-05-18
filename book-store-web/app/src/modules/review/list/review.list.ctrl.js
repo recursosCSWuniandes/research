@@ -11,7 +11,7 @@
                     displayName: 'Create',
                     icon: 'plus',
                     fn: function () {
-                        $state.go('book.instance.edit.reviews.new');
+                        $state.go('reviewNew');
                     }
                 },
                 refresh: {
@@ -27,7 +27,7 @@
                     displayName: 'Edit',
                     icon: 'edit',
                     fn: function (rc) {
-                        $state.go('book.instance.edit.reviews.instance.edit', {bookId: book.id, reviewId: rc.id});
+                        $state.go('reviewEdit', {bookId: book.id, reviewId: rc.id});
                     },
                     show: function () {
                         return true;
@@ -37,7 +37,7 @@
                     displayName: 'Delete',
                     icon: 'minus',
                     fn: function (rc) {
-                        $state.go('book.instance.edit.reviews.instance.delete', {bookId: book.id, reviewId: rc.id});
+                        $state.go('reviewDelete', {bookId: book.id, reviewId: rc.id});
                     },
                     show: function () {
                         return true;

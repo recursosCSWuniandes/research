@@ -34,7 +34,7 @@
                     displayName: 'Create',
                     icon: 'plus',
                     fn: function () {
-                        $state.go('author.new');
+                        $state.go('authorNew');
                     }
                 },
                 refresh: {
@@ -50,7 +50,7 @@
                     displayName: 'Edit',
                     icon: 'edit',
                     fn: function (rc) {
-                        $state.go('author.instance.edit', {authorId: rc.id});
+                        $state.go('authorEdit', {authorId: rc.id});
                     },
                     show: function () {
                         return true;
@@ -60,7 +60,7 @@
                     displayName: 'Delete',
                     icon: 'minus',
                     fn: function (rc) {
-                        $state.go('author.instance.delete', {authorId: rc.id});
+                        $state.go('authorDelete', {authorId: rc.id});
                     },
                     show: function () {
                         return true;

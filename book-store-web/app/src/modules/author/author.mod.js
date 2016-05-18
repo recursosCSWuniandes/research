@@ -69,8 +69,9 @@
                             return r.all(model.url).getList();
                         }]
                 }
-            }).state('author.list', {
+            }).state('authorList', {
                 url: '/list',
+                parent: 'author',
                 views: {
                     authorView: {
                         templateUrl: basePath + 'list/author.list.tpl.html',
@@ -78,8 +79,9 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('author.new', {
+            }).state('authorNew', {
                 url: '/new',
+                parent: 'author',
                 views: {
                     authorView: {
                         templateUrl: basePath + 'new/author.new.tpl.html',
@@ -87,9 +89,10 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('author.instance', {
+            }).state('authorInstance', {
                 url: '/{authorId:int}',
                 abstract: true,
+                parent: 'author',
                 views: {
                     authorView: {
                         template: '<div ui-view="authorDetailsView"></div>'
@@ -100,17 +103,19 @@
                             return authors.get($params.authorId);
                         }]
                 }
-            }).state('author.instance.details', {
+            }).state('authorDetails', {
                 url: '/',
+                parent: 'authorInstance',
                 views: {
                     authorDetailsView: {
                         templateUrl: basePath + 'instance/details/author.detail.tpl.html',
                         controller: 'authorDetailCtrl'
                     }
                 }
-            }).state('author.instance.edit', {
+            }).state('authorEdit', {
                 url: '/edit',
                 sticky: true,
+                parent: 'authorInstance',
                 views: {
                     authorDetailsView: {
                         templateUrl: basePath + 'instance/edit/author.edit.tpl.html',
@@ -118,8 +123,9 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('author.instance.delete', {
+            }).state('authorDelete', {
                 url: '/delete',
+                parent: 'authorInstance',
                 views: {
                     authorDetailsView: {
                         templateUrl: basePath + 'instance/delete/author.delete.tpl.html',

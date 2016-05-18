@@ -39,7 +39,7 @@
                     fn: function () {
                         if ($scope.editorialForm.$valid) {
                             editorials.post($scope.currentRecord).then(function () {
-                                $state.go('editorial.list', null, {reload: true});
+                                $state.go('editorialList', null, {reload: true});
                             });
                         }
                     }
@@ -48,7 +48,7 @@
                     displayName: 'Cancel',
                     icon: 'remove',
                     fn: function () {
-                        $state.go('editorial.list');
+                        $state.go('editorialList');
                     }
                 }
             };

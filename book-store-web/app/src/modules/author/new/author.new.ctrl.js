@@ -38,7 +38,7 @@
                     fn: function () {
                         if ($scope.authorForm.$valid) {
                             authors.post($scope.currentRecord).then(function () {
-                                $state.go('author.list', null, {reload: true});
+                                $state.go('authorList', null, {reload: true});
                             });
                         }
                     }
@@ -47,7 +47,7 @@
                     displayName: 'Cancel',
                     icon: 'remove',
                     fn: function () {
-                        $state.go('author.list');
+                        $state.go('authorList');
                     }
                 }
             };

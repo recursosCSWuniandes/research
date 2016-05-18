@@ -35,7 +35,7 @@
                     displayName: 'Create',
                     icon: 'plus',
                     fn: function () {
-                        $state.go('editorial.new');
+                        $state.go('editorialNew');
                     }
                 },
                 refresh: {
@@ -51,7 +51,7 @@
                     displayName: 'Edit',
                     icon: 'edit',
                     fn: function (rc) {
-                        $state.go('editorial.instance.edit', {editorialId: rc.id});
+                        $state.go('editorialEdit', {editorialId: rc.id});
                     },
                     show: function () {
                         return true;
@@ -61,7 +61,7 @@
                     displayName: 'Delete',
                     icon: 'minus',
                     fn: function (rc) {
-                        $state.go('editorial.instance.delete', {editorialId: rc.id});
+                        $state.go('editorialDelete', {editorialId: rc.id});
                     },
                     show: function () {
                         return true;

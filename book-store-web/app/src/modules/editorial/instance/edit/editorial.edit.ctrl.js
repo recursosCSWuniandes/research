@@ -6,9 +6,6 @@
         function ($scope, $state, editorial, model) {
             $scope.currentRecord = editorial;
             $scope.fields = model.fields;
-            $scope.go = function (child) {
-                $state.go('editorial.instance.edit.' + child + '.list');
-            };
             $scope.actions = {
                 save: {
                     displayName: 'Save',
@@ -16,7 +13,7 @@
                     fn: function () {
                         if ($scope.editorialForm.$valid) {
                             $scope.currentRecord.put().then(function () {
-                                $state.go('editorial.list', null, {reload: true});
+                                $state.go('editorialList', null, {reload: true});
                             });
                         }
                     }
@@ -25,7 +22,7 @@
                     displayName: 'Cancel',
                     icon: 'remove',
                     fn: function () {
-                        $state.go('editorial.list');
+                        $state.go('editorialList');
                     }
                 }
             };

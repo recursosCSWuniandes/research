@@ -30,7 +30,7 @@
     mod.controller("editorialDeleteCtrl", ["$state", "editorial", function ($state, editorial) {
             this.confirmDelete = function () {
                 editorial.remove().then(function () {
-                    $state.go('editorial.list', null, {reload: true});
+                    $state.go('editorialList', null, {reload: true});
                 });
             };
         }]);

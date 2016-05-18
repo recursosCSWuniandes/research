@@ -6,9 +6,6 @@
         function ($scope, $state, author, model) {
             $scope.currentRecord = author;
             $scope.fields = model.fields;
-            $scope.go = function (child) {
-                $state.go('author.instance.edit.' + child + '.list');
-            };
             $scope.actions = {
                 save: {
                     displayName: 'Save',
@@ -16,7 +13,7 @@
                     fn: function () {
                         if ($scope.authorForm.$valid) {
                             $scope.currentRecord.put().then(function () {
-                                $state.go('author.list', null, {reload: true});
+                                $state.go('authorList', null, {reload: true});
                             });
                         }
                     }
@@ -25,7 +22,7 @@
                     displayName: 'Cancel',
                     icon: 'remove',
                     fn: function () {
-                        $state.go('author.list');
+                        $state.go('authorList');
                     }
                 }
             };

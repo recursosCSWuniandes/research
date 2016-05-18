@@ -37,7 +37,7 @@
                     fn: function () {
                         if ($scope.reviewForm.$valid) {
                             reviews.post($scope.currentRecord).then(function () {
-                                $state.go('book.instance.edit.reviews.list', null, {reload: true});
+                                $state.go('reviewList', null, {reload: true});
                             });
                         }
                     }
@@ -46,7 +46,7 @@
                     displayName: 'Cancel',
                     icon: 'remove',
                     fn: function () {
-                        $state.go('book.instance.edit.reviews.list');
+                        $state.go('reviewList');
                     }
                 }
             };

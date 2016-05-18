@@ -30,7 +30,7 @@
     mod.controller("authorDeleteCtrl", ["$state", "author", function ($state, author) {
             this.confirmDelete = function () {
                 author.remove().then(function () {
-                    $state.go('author.list', null, {reload: true});
+                    $state.go('authorList', null, {reload: true});
                 });
             };
         }]);

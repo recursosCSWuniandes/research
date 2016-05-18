@@ -32,7 +32,7 @@
             $scope.bookId = book.id;
             $scope.confirmDelete = function () {
                 review.remove().then(function () {
-                    $state.go('book.instance.edit.reviews.list', null, {reload: true});
+                    $state.go('reviewList', null, {reload: true});
                 });
             };
         }]);

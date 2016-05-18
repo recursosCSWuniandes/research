@@ -56,8 +56,9 @@
                             return r.all(model.url).getList();
                         }]
                 }
-            }).state('editorial.list', {
+            }).state('editorialList', {
                 url: '/list',
+                parent: 'editorial',
                 views: {
                     editorialView: {
                         templateUrl: basePath + 'list/editorial.list.tpl.html',
@@ -65,8 +66,9 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('editorial.new', {
+            }).state('editorialNew', {
                 url: '/new',
+                parent: 'editorial',
                 views: {
                     editorialView: {
                         templateUrl: basePath + 'new/editorial.new.tpl.html',
@@ -74,9 +76,10 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('editorial.instance', {
+            }).state('editorialInstance', {
                 url: '/{editorialId:int}',
                 abstract: true,
+                parent: 'editorial',
                 views: {
                     editorialView: {
                         template: '<div ui-view="editorialDetailsView"></div>'
@@ -87,17 +90,19 @@
                             return editorials.get($params.editorialId);
                         }]
                 }
-            }).state('editorial.instance.details', {
+            }).state('editorialDetails', {
                 url: '/',
+                parent: 'editorialInstance',
                 views: {
                     editorialDetailsView: {
                         templateUrl: basePath + 'instance/details/editorial.detail.tpl.html',
                         controller: 'editorialDetailCtrl'
                     }
                 }
-            }).state('editorial.instance.edit', {
+            }).state('editorialEdit', {
                 url: '/edit',
                 sticky: true,
+                parent: 'editorialInstance',
                 views: {
                     editorialDetailsView: {
                         templateUrl: basePath + 'instance/edit/editorial.edit.tpl.html',
@@ -105,8 +110,9 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('editorial.instance.delete', {
+            }).state('editorialDelete', {
                 url: '/delete',
+                parent: 'editorialInstance',
                 views: {
                     editorialDetailsView: {
                         templateUrl: basePath + 'instance/delete/editorial.delete.tpl.html',
