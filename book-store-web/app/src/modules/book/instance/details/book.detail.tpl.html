@@ -17,7 +17,7 @@
         <p><strong>Editorial:</strong> <span id="{{$index}}-publishDate">{{currentRecord.editorial.name}}</span></p>
     </div>
     <p class="text-center">
-        <a ui-sref="book.instance.edit({bookId: currentRecord.id})" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-        <a ui-sref="book.instance.delete({bookId: currentRecord.id})" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
+        <a ui-sref="bookEdit({bookId: currentRecord.id})" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+        <a ui-sref="bookDelete({bookId: currentRecord.id})" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
     </p>
 </div>

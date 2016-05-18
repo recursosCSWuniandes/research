@@ -61,20 +61,7 @@
                 options: [],
                 required: true
             }
-        },
-        childs: [{
-                name: 'authors',
-                displayName: 'Authors',
-                //template: '', //override generic template
-                ctrl: 'BooksauthorsCtrl',
-                owned: false
-            }, {
-                name: 'reviews',
-                displayName: 'Reviews',
-                //template: '', //override generic template
-                ctrl: 'BookreviewsCtrl',
-                owned: true
-            }]});
+        }});
 
     mod.config(['$stateProvider',
         function ($stateProvider) {
@@ -99,8 +86,9 @@
                             return r.all(model.url).getList();
                         }]
                 }
-            }).state('book.list', {
+            }).state('bookList', {
                 url: '/list',
+                parent: 'book',
                 views: {
                     bookView: {
                         templateUrl: basePath + 'list/book.list.tpl.html',
@@ -108,8 +96,9 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('book.new', {
+            }).state('bookNew', {
                 url: '/new',
+                parent: 'book',
                 views: {
                     bookView: {
                         templateUrl: basePath + 'new/book.new.tpl.html',
@@ -117,9 +106,10 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('book.instance', {
+            }).state('bookInstance', {
                 url: '/{bookId:int}',
                 abstract: true,
+                parent: 'book',
                 views: {
                     bookView: {
                         template: '<div ui-view="bookDetailsView"></div>'
@@ -130,17 +120,19 @@
                             return books.get($params.bookId);
                         }]
                 }
-            }).state('book.instance.details', {
+            }).state('bookDetails', {
                 url: '/',
+                parent: 'bookInstance',
                 views: {
                     bookDetailsView: {
                         templateUrl: basePath + 'instance/details/book.detail.tpl.html',
                         controller: 'bookDetailCtrl'
                     }
                 }
-            }).state('book.instance.edit', {
+            }).state('bookEdit', {
                 url: '/edit',
                 sticky: true,
+                parent: 'bookInstance',
                 views: {
                     bookDetailsView: {
                         templateUrl: basePath + 'instance/edit/book.edit.tpl.html',
@@ -148,8 +140,9 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('book.instance.delete', {
+            }).state('bookDelete', {
                 url: '/delete',
+                parent: 'bookInstance',
                 views: {
                     bookDetailsView: {
                         templateUrl: basePath + 'instance/delete/book.delete.tpl.html',

@@ -30,22 +30,25 @@ public class ReviewService {
         }
         return dtos;
     }
+    
+    @PathParam("bookId")
+    private Long bookId;
 
     @GET
-    public List<ReviewBasicDTO> getReviews(@PathParam("bookId") Long bookId) {
+    public List<ReviewBasicDTO> getReviews() {
         List<ReviewEntity> reviews = logic.getReviews(bookId);
         return listEntity2DTO(reviews);
     }
 
     @GET
     @Path("{reviewId: \\d+}")
-    public ReviewBasicDTO getReview(@PathParam("bookId") Long bookId, @PathParam("reviewId") Long reviewId) {
+    public ReviewBasicDTO getReview(@PathParam("reviewId") Long reviewId) {
         ReviewEntity review = logic.getReview(bookId, reviewId);
         return new ReviewBasicDTO(review);
     }
 
     @POST
-    public ReviewBasicDTO createReview(@PathParam("bookId") Long bookId, ReviewBasicDTO dto) {
+    public ReviewBasicDTO createReview(ReviewBasicDTO dto) {
         ReviewEntity entity = dto.toEntity();
         entity = logic.createReview(bookId, entity);
         return new ReviewBasicDTO(entity);
@@ -53,7 +56,7 @@ public class ReviewService {
 
     @PUT
     @Path("{reviewId: \\d+}")
-    public ReviewBasicDTO updateReview(@PathParam("bookId") Long bookId, @PathParam("reviewId") Long reviewId, ReviewBasicDTO dto) {
+    public ReviewBasicDTO updateReview(@PathParam("reviewId") Long reviewId, ReviewBasicDTO dto) {
         ReviewEntity entity = dto.toEntity();
         entity.setId(reviewId);
         entity = logic.updateReview(bookId, entity);
@@ -62,7 +65,13 @@ public class ReviewService {
 
     @DELETE
     @Path("{reviewId: \\d+}")
-    public void deleteReview(@PathParam("bookId") Long bookId, @PathParam("reviewId") Long reviewId) {
+    public void deleteReview(@PathParam("reviewId") Long reviewId) {
         logic.deleteReview(bookId, reviewId);
+    }
+    
+    @Path("{reviewId: \\d+}/scores")
+    public Class<ReviewService> getReviewService(@PathParam("reviewId") Long reviewId) {
+        logic.getReview(bookId, reviewId);
+        return ReviewService.class;
     }
 }

@@ -7,7 +7,7 @@
             $scope.currentRecord = book;
             $scope.fields = model.fields;
             $scope.go = function (child) {
-                $state.go('book.instance.edit.' + child + '.list');
+                $state.go(child);
             };
             $scope.actions = {
                 save: {
@@ -16,7 +16,7 @@
                     fn: function () {
                         if ($scope.bookForm.$valid) {
                             $scope.currentRecord.put().then(function () {
-                                $state.go('book.list', null, {reload: true});
+                                $state.go('bookList', null, {reload: true});
                             });
                         }
                     }
@@ -25,7 +25,7 @@
                     displayName: 'Cancel',
                     icon: 'remove',
                     fn: function () {
-                        $state.go('book.list');
+                        $state.go('bookList');
                     }
                 }
             };

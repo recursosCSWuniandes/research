@@ -2,7 +2,7 @@
     <toolbar name="'books'" display-name="'Books'" actions='actions'></toolbar>
 </header>
 <div class="col-sm-12">
-    <div ng-repeat="record in records" ui-sref="book.instance.details({id: record.id})">
+    <div ng-repeat="record in records" ui-sref="bookDetails({id: record.id})">
         <div class="col-md-4 col-sm-6 col-lg-3 well text-center">
             <div class="col-md-12">
                 <div class="img-thumbnail" id="image" ng-if="record.image">
@@ -17,8 +17,8 @@
                 <p><strong>Editorial:</strong> <span id="{{$index}}-publishDate">{{record.editorial.name}}</span></p>
             </div>
             <p class="text-center">
-                <a ui-sref="book.instance.edit({bookId: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                <a ui-sref="book.instance.delete({bookId: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
+                <a ui-sref="bookEdit({bookId: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                <a ui-sref="bookDelete({bookId: record.id})" ng-click="$event.stopPropagation()" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
             </p>
         </div>
     </div>

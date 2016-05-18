@@ -51,9 +51,10 @@
 
     mod.config(['$stateProvider', function ($stateProvider) {
             var basePath = 'src/modules/review/';
-            $stateProvider.state('book.instance.edit.reviews', {
+            $stateProvider.state('review', {
                 url: '/reviews',
                 abstract: true,
+                parent: 'bookEdit',
                 views: {
                     reviewView: {
                         templateUrl: basePath + 'review.tpl.html',
@@ -66,8 +67,9 @@
                         }],
                     model: 'reviewModel'
                 }
-            }).state('book.instance.edit.reviews.list', {
+            }).state('reviewList', {
                 url: '/list',
+                parent: 'review',
                 views: {
                     reviewView: {
                         templateUrl: basePath + 'list/review.list.tpl.html',
@@ -75,8 +77,9 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('book.instance.edit.reviews.new', {
+            }).state('reviewNew', {
                 url: '/new',
+                parent: 'review',
                 views: {
                     reviewView: {
                         templateUrl: basePath + 'new/review.new.tpl.html',
@@ -84,9 +87,10 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('book.instance.edit.reviews.instance', {
+            }).state('reviewInstance', {
                 url: '/{reviewId:int}',
                 abstract: true,
+                parent: 'review',
                 views: {
                     reviewView: {
                         template: '<div ui-view="reviewDetailsView"></div>'
@@ -97,16 +101,18 @@
                             return reviews.get($params.reviewId);
                         }]
                 }
-            }).state('book.instance.edit.reviews.instance.details', {
+            }).state('reviewDetails', {
                 url: '/',
+                parent: 'reviewInstance',
                 views: {
                     reviewDetailsView: {
                         templateUrl: basePath + 'instance/details/review.detail.tpl.html',
                         controller: 'reviewDetailCtrl'
                     }
                 }
-            }).state('book.instance.edit.reviews.instance.edit', {
+            }).state('reviewEdit', {
                 url: '/edit',
+                parent: 'reviewInstance',
                 views: {
                     reviewDetailsView: {
                         templateUrl: basePath + 'instance/edit/review.edit.tpl.html',
@@ -114,8 +120,9 @@
                         controllerAs: 'ctrl'
                     }
                 }
-            }).state('book.instance.edit.reviews.instance.delete', {
+            }).state('reviewDelete', {
                 url: '/delete',
+                parent: 'reviewInstance',
                 views: {
                     reviewDetailsView: {
                         templateUrl: basePath + 'instance/delete/review.delete.tpl.html',

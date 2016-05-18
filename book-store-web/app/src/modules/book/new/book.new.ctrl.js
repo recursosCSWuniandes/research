@@ -12,7 +12,7 @@
                     fn: function () {
                         if ($scope.form.$valid) {
                             books.post($scope.currentRecord).then(function () {
-                                $state.go('book.list', null, {reload: true});
+                                $state.go('bookList', null, {reload: true});
                             });
                         }
                     }
@@ -21,7 +21,7 @@
                     displayName: 'Cancel',
                     icon: 'remove',
                     fn: function () {
-                        $state.go('book.list');
+                        $state.go('bookList');
                     }
                 }
             };

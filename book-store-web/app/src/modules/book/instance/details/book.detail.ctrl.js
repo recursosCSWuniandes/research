@@ -9,7 +9,7 @@
                     displayName: 'Create',
                     icon: 'plus',
                     fn: function () {
-                        $state.go('book.new');
+                        $state.go('bookNew');
                     }
                 },
                 refresh: {
