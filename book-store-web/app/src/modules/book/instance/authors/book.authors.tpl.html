@@ -1,4 +1,19 @@
 <header id="author-header">
     <toolbar name="'authors'" display-name="'Authors'" actions='actions'></toolbar>
 </header>
-<list-records fields="fields" records="records" actions="recordActions"></list-records>
+<div class="col-md-12">
+    <div class="col-md-8">
+        <fieldset>
+            <legend>Selected Authors</legend>
+            <list-records fields="fields" records="records" actions="recordActions"></list-records>
+        </fieldset>
+    </div>
+    <div class="col-md-4">
+        <fieldset>
+            <legend>Available authors</legend>
+            <select class="form-control" multiple ng-options="rc.name for rc in available track by rc.id" ng-model="records">
+
+            </select>
+        </fieldset>
+    </div>
+</div>

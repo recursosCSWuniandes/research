@@ -7,10 +7,10 @@
     </fieldset>
 </form>
 <tabset>
-    <tab heading="Reviews" select="go('reviewList')">
+    <tab heading="Reviews" ui-sref-active="active" ui-sref="reviewList">
         <div ui-view="reviewView"></div>
     </tab>
-    <tab heading='Authors' select="go('authorList')">
+    <tab heading='Authors' ui-sref-active="active" ui-sref="bookAuthors">
         <div ui-view="authorsView"></div>
     </tab>
 </tabset>

@@ -42,7 +42,10 @@ import co.edu.uniandes.csw.bookstore.api.IBookLogic;
 import co.edu.uniandes.csw.bookstore.dtos.basic.BookBasicDTO;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.dtos.basic.AuthorBasicDTO;
+import co.edu.uniandes.csw.bookstore.dtos.basic.ReviewBasicDTO;
 import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
+import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
+import java.util.ArrayList;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -66,8 +69,12 @@ public class BookService {
         return entityList.parallelStream().map(BookBasicDTO::new).collect(toList());
     }
 
-    private List<AuthorBasicDTO> authorsListEntity2DTO(List<AuthorEntity> entityList) {
-        return entityList.parallelStream().map(AuthorBasicDTO::new).collect(toList());
+    private List<AuthorBasicDTO> authorsListEntity2DTO(List<AuthorEntity> entities) {
+        List<AuthorBasicDTO> dtos = new ArrayList<>();
+        for (AuthorEntity entity : entities) {
+            dtos.add(new AuthorBasicDTO(entity));
+        }
+        return dtos;
     }
 
     private List<AuthorEntity> authorsListDTO2Entity(List<AuthorBasicDTO> dtos) {

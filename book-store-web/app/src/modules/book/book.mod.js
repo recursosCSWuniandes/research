@@ -150,6 +150,25 @@
                         controllerAs: 'ctrl'
                     }
                 }
+            }).state('bookAuthors', {
+                url: '/authors',
+                parent: 'bookEdit',
+                views: {
+                    authorsView: {
+                        templateUrl: basePath + 'instance/authors/book.authors.tpl.html',
+                        controller: 'bookAuthorsCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                },
+                resolve: {
+                    authors: ['book', function (book) {
+                            return book.getList('authors');
+                        }],
+                    pool: ['Restangular', 'model', function (r, model) {
+                            return r.all(model.url).getList();
+                        }],
+                    model: 'authorModel'
+                }
             });
         }]);
 })(window.angular);

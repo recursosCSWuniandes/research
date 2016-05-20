@@ -27,29 +27,16 @@
     var mod = ng.module('bookModule');
 
     mod.controller('bookAuthorsCtrl', ['$scope', 'authors', 'pool', 'model', '$state',
-        function ($scope, authors, pool, model, $state) {
+        function ($scope, authors, available, model, $state) {
             $scope.records = authors;
             $scope.fields = model.fields;
+            $scope.available = available.plain();
             $scope.actions = {
-                create: {
-                    displayName: 'Add',
-                    icon: 'plus',
+                cancel: {
+                    displayName: 'Cancel',
+                    icon: 'remove',
                     fn: function () {
-                        $state.go('authorNew');
-                    }
-                }
-            };
-            $scope.recordActions = {
-                delete: {
-                    displayName: 'Delete',
-                    icon: 'minus',
-                    fn: function (rc) {
-                        rc.remove().then(function () {
-                            $state.reload();
-                        });
-                    },
-                    show: function () {
-                        return true;
+                        $state.reload();
                     }
                 }
             };
