@@ -153,21 +153,41 @@
             }).state('bookAuthors', {
                 url: '/authors',
                 parent: 'bookEdit',
+                abstract: true,
                 views: {
-                    authorsView: {
-                        templateUrl: basePath + 'instance/authors/book.authors.tpl.html',
-                        controller: 'bookAuthorsCtrl',
-                        controllerAs: 'ctrl'
+                    bookChildView: {
+                        template: '<div ui-view="bookAuthorsView"></div>'
                     }
                 },
                 resolve: {
                     authors: ['book', function (book) {
                             return book.getList('authors');
                         }],
+                    model: 'authorModel'
+                }
+            }).state('bookAuthorsList', {
+                url: '/list',
+                parent: 'bookAuthors',
+                views: {
+                    bookAuthorsView: {
+                        templateUrl: basePath + 'instance/authors/list/book.authors.list.tpl.html',
+                        controller: 'bookAuthorsListCtrl'
+                    }
+                }
+            }).state('bookAuthorsEdit', {
+                url: '/edit',
+                parent: 'bookAuthors',
+                views: {
+                    bookAuthorsView: {
+                        templateUrl: basePath + 'instance/authors/edit/book.authors.edit.tpl.html',
+                        controller: 'bookAuthorsEditCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                },
+                resolve: {
                     pool: ['Restangular', 'model', function (r, model) {
                             return r.all(model.url).getList();
-                        }],
-                    model: 'authorModel'
+                        }]
                 }
             });
         }]);

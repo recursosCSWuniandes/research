@@ -56,7 +56,7 @@
                 abstract: true,
                 parent: 'bookEdit',
                 views: {
-                    reviewView: {
+                    bookChildView: {
                         templateUrl: basePath + 'review.tpl.html',
                         controller: 'reviewCtrl'
                     }

@@ -1,16 +1,10 @@
-<header id="book-header">
-    <toolbar name="'books'" display-name="'Books'" actions='actions'></toolbar>
-</header>
-<form name='bookForm'>
-    <fieldset>
-        <crud-form name="'bookForm'" fields='fields' record='currentRecord' lists-of-values="references"></crud-form>
-    </fieldset>
-</form>
-<tabset>
-    <tab heading="Reviews" ui-sref-active="active" ui-sref="reviewList">
-        <div ui-view="reviewView"></div>
-    </tab>
-    <tab heading='Authors' ui-sref-active="active" ui-sref="bookAuthors">
-        <div ui-view="authorsView"></div>
-    </tab>
-</tabset>
+<div ui-view="bookChildView">
+    <header id="book-header">
+        <toolbar name="'books'" display-name="'Books'" actions='actions'></toolbar>
+    </header>
+    <form name='bookForm'>
+        <fieldset>
+            <crud-form name="'bookForm'" fields='fields' record='currentRecord' lists-of-values="references"></crud-form>
+        </fieldset>
+    </form>
+</div>

@@ -20,6 +20,13 @@
                     fn: function () {
                         $state.reload();
                     }
+                },
+                cancel: {
+                    displayName: 'Go back',
+                    icon: 'arrow-left',
+                    fn: function () {
+                        $state.go('bookEdit');
+                    }
                 }
             };
             $scope.recordActions = {
