@@ -2,18 +2,22 @@
     <toolbar name="'authors'" display-name="'Authors'" actions='actions'></toolbar>
 </header>
 <div class="col-md-12">
-    <div class="col-md-8">
+    <div class="col-md-5">
         <fieldset>
             <legend>Selected Authors</legend>
-            <list-records fields="fields" records="records" actions="recordActions"></list-records>
+            <select class="form-control" multiple ng-options="rc.name for rc in records track by rc.id" ng-model="selected"></select>
         </fieldset>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
+        <button class="form-control btn btn-default" ng-click="removeAll()">&gt;&gt;</button>
+        <button class="form-control btn btn-default" ng-click="removeSome()">&gt;</button>
+        <button class="form-control btn btn-default" ng-click="addSome()">&lt;</button>
+        <button class="form-control btn btn-default" ng-click="addAll()">&lt;&lt;</button>
+    </div>
+    <div class="col-md-5">
         <fieldset>
             <legend>Available authors</legend>
-            <select class="form-control" multiple ng-options="rc.name for rc in available track by rc.id" ng-model="records">
-
-            </select>
+            <select class="form-control" multiple ng-options="rc.name for rc in available track by rc.id" ng-model="availableSelected"></select>
         </fieldset>
     </div>
 </div>
