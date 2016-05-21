@@ -28,53 +28,9 @@
 
     mod.controller('bookAuthorsCtrl', ['$scope', 'authors', 'pool', 'model', '$state',
         function ($scope, authors, available, model, $state) {
-            function move(src, dst, selected) {
-                // If selected is undefined, all records from src are moved to dst
-                if (!!selected) {
-                    for (var i = 0; i < selected.length; i++) {
-                        if (selected.hasOwnProperty(i)) {
-                            var index = null;
-                            for (var j = 0; j < src.length; j++) {
-                                if (src.hasOwnProperty(j)) {
-                                    if (src[j].id === selected[i].id) {
-                                        index = j;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (index !== null) {
-                                dst.push(src.splice(index, 1)[0]);
-                            }
-                        }
-                    }
-                } else {
-                    dst.push.apply(dst, src);
-                    src.splice(0, src.length);
-                }
-            }
-            move(available, [], authors);
             $scope.records = authors;
             $scope.fields = model.fields;
             $scope.available = available.plain();
-            $scope.availableSelected = [];
-            $scope.selected = [];
-
-            $scope.addSome = function () {
-                move($scope.available, $scope.records, $scope.availableSelected);
-                $scope.availableSelected = [];
-            };
-            $scope.addAll = function () {
-                move($scope.available, $scope.records);
-                $scope.availableSelected = [];
-            };
-            $scope.removeSome = function () {
-                move($scope.records, $scope.available, $scope.selected);
-                $scope.selected = [];
-            };
-            $scope.removeAll = function () {
-                move($scope.records, $scope.available);
-                $scope.selected = [];
-            };
             $scope.actions = {
                 cancel: {
                     displayName: 'Cancel',

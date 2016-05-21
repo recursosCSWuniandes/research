@@ -40,6 +40,19 @@
 
     mod.config(['RestangularProvider', function (rp) {
             rp.setBaseUrl('http://localhost:8080/book-store-api/api/');
+            rp.addRequestInterceptor(function (data, operation) {
+                if (operation === "remove") {
+                    return null;
+                }
+                return data;
+            });
+
+            rp.addResponseInterceptor(function (data, operation, what, url, response) {
+                if (operation === "getList" && response.headers("X-Total-Count")) {
+                    data.totalRecords = parseInt(response.headers("X-Total-Count"));
+                }
+                return data;
+            });
         }]);
 
     mod.config(['$urlRouterProvider', function ($urlRouterProvider) {
