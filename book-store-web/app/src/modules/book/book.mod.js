@@ -152,7 +152,7 @@
                 }
             }).state('bookAuthors', {
                 url: '/authors',
-                parent: 'bookEdit',
+                parent: 'bookDetails',
                 abstract: true,
                 views: {
                     bookChildView: {

@@ -2,7 +2,7 @@
     <toolbar name="'books'" display-name="'Books'" actions='actions'></toolbar>
 </header>
 <div class="col-sm-12">
-    <div ng-repeat="record in records" ui-sref="bookDetails({id: record.id})">
+    <div ng-repeat="record in records" ui-sref="bookDetails({bookId: record.id})">
         <div class="col-md-4 col-sm-6 col-lg-3 well text-center">
             <div class="col-md-12">
                 <div class="img-thumbnail" id="image" ng-if="record.image">

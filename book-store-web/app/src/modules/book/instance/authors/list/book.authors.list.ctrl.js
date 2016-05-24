@@ -36,13 +36,6 @@
                     fn: function () {
                         $state.go('bookAuthorsEdit');
                     }
-                },
-                cancel: {
-                    displayName: 'Go back',
-                    icon: 'arrow-left',
-                    fn: function () {
-                        $state.go('bookEdit');
-                    }
                 }
             };
         }]);

@@ -1,10 +1,8 @@
-<div ui-view="bookChildView">
-    <header id="book-header">
-        <toolbar name="'books'" display-name="'Books'" actions='actions'></toolbar>
-    </header>
-    <form name='bookForm'>
-        <fieldset>
-            <crud-form name="'bookForm'" fields='fields' record='currentRecord' lists-of-values="references"></crud-form>
-        </fieldset>
-    </form>
-</div>
+<header id="book-header">
+    <toolbar name="'books'" display-name="'Books'" actions='actions'></toolbar>
+</header>
+<form name='$parent.bookForm'>
+    <fieldset>
+        <crud-form name="'bookForm'" fields='fields' record='currentRecord' lists-of-values="references"></crud-form>
+    </fieldset>
+</form>
