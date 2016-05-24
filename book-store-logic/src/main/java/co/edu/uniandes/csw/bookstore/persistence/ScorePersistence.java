@@ -26,7 +26,7 @@ package co.edu.uniandes.csw.bookstore.persistence;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
+import co.edu.uniandes.csw.bookstore.entities.ScoreEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import java.util.List;
 import javax.persistence.TypedQuery;
@@ -35,7 +35,7 @@ import javax.persistence.TypedQuery;
  * @generated
  */
 @Stateless
-public class ReviewPersistence extends CrudPersistence<ReviewEntity> {
+public class ScorePersistence extends CrudPersistence<ScoreEntity> {
 
     @PersistenceContext(unitName="BookStorePU")
     protected EntityManager em;
@@ -52,20 +52,20 @@ public class ReviewPersistence extends CrudPersistence<ReviewEntity> {
      * @generated
      */
     @Override
-    protected Class<ReviewEntity> getEntityClass() {
-        return ReviewEntity.class;
+    protected Class<ScoreEntity> getEntityClass() {
+        return ScoreEntity.class;
     }
 
-    public ReviewEntity find(Long bookid, Long reviewid) {
-        TypedQuery<ReviewEntity> q = em.createQuery("select p from ReviewEntity p where (p.book.id = :bookid) and (p.id = :reviewid)", ReviewEntity.class);
-        q.setParameter("bookid", bookid);
+    public ScoreEntity find(Long reviewid, Long scoreid) {
+        TypedQuery<ScoreEntity> q = em.createQuery("select p from ScoreEntity p where (p.review.id = :reviewid) and (p.id = :scoreid)", ScoreEntity.class);
         q.setParameter("reviewid", reviewid);
+        q.setParameter("scoreid", scoreid);
         return q.getSingleResult();
     }
     
-    public List<ReviewEntity> findAll(Integer page, Integer maxRecords, Long bookid) {
-        TypedQuery<ReviewEntity> q = em.createQuery("select p from ReviewEntity p where (p.book.id = :bookid)", ReviewEntity.class);
-        q.setParameter("bookid", bookid);
+    public List<ScoreEntity> findAll(Integer page, Integer maxRecords, Long reviewid) {
+        TypedQuery<ScoreEntity> q = em.createQuery("select p from ScoreEntity p where (p.review.id = :reviewid)", ScoreEntity.class);
+        q.setParameter("reviewid", reviewid);
         if (page != null && maxRecords != null) {
             q.setFirstResult((page - 1) * maxRecords);
             q.setMaxResults(maxRecords);

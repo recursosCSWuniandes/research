@@ -220,6 +220,7 @@ public class BookService {
 
     @Path("{bookId: \\d+}/reviews")
     public Class<ReviewService> getReviewService() {
+        //getBook(bookId);
         return ReviewService.class;
     }
 }

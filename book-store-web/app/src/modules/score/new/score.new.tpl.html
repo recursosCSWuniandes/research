@@ -23,15 +23,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 <header id="review-header">
-    <toolbar name="'reviews'" display-name="'Reviews'" actions='actions'></toolbar>
+    <toolbar name="'scores'" display-name="'Scores'" actions='actions'></toolbar>
 </header>
-<form name='reviewForm'>
+<form novalidate name="scoreForm" id="{{name}}" role="form">
     <fieldset>
         <crud-form fields='fields' record='currentRecord'></crud-form>
     </fieldset>
 </form>
-<tabset>
-    <tab heading="Scores" select="go('scoreList')">
-        <div ui-view="scoreView"></div>
-    </tab>
-</tabset>

@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.bookstore.resources;
 
 import co.edu.uniandes.csw.bookstore.api.IReviewLogic;
 import co.edu.uniandes.csw.bookstore.dtos.basic.ReviewBasicDTO;
+import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 @Consumes(MediaType.APPLICATION_JSON)
@@ -22,15 +24,15 @@ public class ReviewService {
 
     @Inject
     private IReviewLogic logic;
-    
-    private List<ReviewBasicDTO> listEntity2DTO(List<ReviewEntity> entities){
+
+    private List<ReviewBasicDTO> listEntity2DTO(List<ReviewEntity> entities) {
         List<ReviewBasicDTO> dtos = new ArrayList<>();
         for (ReviewEntity entity : entities) {
             dtos.add(new ReviewBasicDTO(entity));
         }
         return dtos;
     }
-    
+
     @PathParam("bookId")
     private Long bookId;
 
@@ -43,7 +45,10 @@ public class ReviewService {
     @GET
     @Path("{reviewId: \\d+}")
     public ReviewBasicDTO getReview(@PathParam("reviewId") Long reviewId) {
-        ReviewEntity review = logic.getReview(bookId, reviewId);
+        ReviewEntity review = logic.getReview(reviewId);
+        if (review.getBook() != null && !bookId.equals(review.getBook().getId())) {
+            throw new WebApplicationException(404);
+        }
         return new ReviewBasicDTO(review);
     }
 
@@ -66,12 +71,12 @@ public class ReviewService {
     @DELETE
     @Path("{reviewId: \\d+}")
     public void deleteReview(@PathParam("reviewId") Long reviewId) {
-        logic.deleteReview(bookId, reviewId);
+        logic.deleteReview(reviewId);
     }
-    
+
     @Path("{reviewId: \\d+}/scores")
-    public Class<ReviewService> getReviewService(@PathParam("reviewId") Long reviewId) {
-        logic.getReview(bookId, reviewId);
-        return ReviewService.class;
+    public Class<ScoreService> getScoreService(@PathParam("reviewId") Long reviewId) {
+        getReview(reviewId);
+        return ScoreService.class;
     }
 }

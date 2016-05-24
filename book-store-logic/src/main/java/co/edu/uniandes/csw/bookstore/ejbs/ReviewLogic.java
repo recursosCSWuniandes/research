@@ -25,12 +25,12 @@ public class ReviewLogic implements IReviewLogic {
 
     @Override
     public List<ReviewEntity> getReviews(Long bookId) {
-        return bookLogic.getBook(bookId).getReviews();
+        return persistence.findAll(null, null, bookId);
     }
 
     @Override
-    public ReviewEntity getReview(Long bookId, Long reviewId) {
-        return persistence.find(bookId, reviewId);
+    public ReviewEntity getReview(Long reviewId) {
+        return persistence.find(reviewId);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class ReviewLogic implements IReviewLogic {
     }
 
     @Override
-    public void deleteReview(Long BookId, Long reviewId) {
-        ReviewEntity review = getReview(BookId, reviewId);
+    public void deleteReview(Long reviewId) {
+        ReviewEntity review = getReview(reviewId);
         persistence.delete(review.getId());
     }
 }

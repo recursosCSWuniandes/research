@@ -28,47 +28,39 @@ import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.util.List;
-import java.util.ArrayList;
-import javax.persistence.CascadeType;
 
 /**
  * @generated
  */
 @Entity
-public class ReviewEntity extends BaseEntity implements Serializable {
+public class ScoreEntity extends BaseEntity implements Serializable {
 
-    private String source;
+    private Float score;
 
     private String description;
 
     @PodamExclude
     @ManyToOne
-    private BookEntity book;
-
-    
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ScoreEntity> score = new ArrayList<>();
+    private ReviewEntity review;
 
     /**
-     * Obtiene el atributo source.
+     * Obtiene el atributo score.
      *
-     * @return atributo source.
+     * @return atributo score.
      * @generated
      */
-    public String getSource(){
-        return source;
+    public Float getScore(){
+        return score;
     }
 
     /**
-     * Establece el valor del atributo source.
+     * Establece el valor del atributo score.
      *
-     * @param source nuevo valor del atributo
+     * @param score nuevo valor del atributo
      * @generated
      */
-    public void setSource(String source){
-        this.source = source;
+    public void setScore(Float score){
+        this.score = score;
     }
 
     /**
@@ -92,42 +84,22 @@ public class ReviewEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Obtiene el atributo book.
+     * Obtiene el atributo review.
      *
-     * @return atributo book.
+     * @return atributo review.
      * @generated
      */
-    public BookEntity getBook() {
-        return book;
+    public ReviewEntity getReview() {
+        return review;
     }
 
     /**
-     * Establece el valor del atributo book.
+     * Establece el valor del atributo review.
      *
-     * @param book nuevo valor del atributo
+     * @param review nuevo valor del atributo
      * @generated
      */
-    public void setBook(BookEntity book) {
-        this.book = book;
-    }
-
-    /**
-     * Obtiene la colección de score.
-     *
-     * @return colección score.
-     * @generated
-     */
-    public List<ScoreEntity> getScore() {
-        return score;
-    }
-
-    /**
-     * Establece el valor de la colección de score.
-     *
-     * @param score nuevo valor de la colección.
-     * @generated
-     */
-    public void setScore(List<ScoreEntity> score) {
-        this.score = score;
+    public void setReview(ReviewEntity review) {
+        this.review = review;
     }
 }

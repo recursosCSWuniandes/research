@@ -28,6 +28,7 @@
         'reviewModule',
         'authorModule',
         'editorialModule',
+        'scoreModule',
         'authModule',
         'ui.router',
         'ct.ui.router.extras',

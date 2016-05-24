@@ -9,11 +9,11 @@ public interface IReviewLogic {
 
     public List<ReviewEntity> getReviews(Long bookId);
 
-    public ReviewEntity getReview(Long bookId, Long reviewId);
+    public ReviewEntity getReview( Long reviewId);
 
     public ReviewEntity createReview(Long bookId, ReviewEntity review);
 
     public ReviewEntity updateReview(Long bookId, ReviewEntity review);
 
-    public void deleteReview(Long BookId, Long reviewId);
+    public void deleteReview(Long reviewId);
 }
