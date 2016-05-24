@@ -22,6 +22,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
+<div ui-view="reviewChildView">
 <header id="review-header">
     <toolbar name="'reviews'" display-name="'Reviews'" actions='actions'></toolbar>
 </header>
@@ -30,8 +31,4 @@ THE SOFTWARE.
         <crud-form fields='fields' record='currentRecord'></crud-form>
     </fieldset>
 </form>
-<tabset>
-    <tab heading="Scores" select="go('scoreList')">
-        <div ui-view="scoreView"></div>
-    </tab>
-</tabset>
+</div>

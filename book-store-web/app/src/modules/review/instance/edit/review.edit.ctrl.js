@@ -24,6 +24,12 @@
                     fn: function () {
                         $state.go('reviewList');
                     }
+                }, scores: {
+                    displayName: 'Scores',
+                    icon: 'star',
+                    fn: function () {
+                        $state.go('scoreList');
+                    }
                 }
             };
         }]);

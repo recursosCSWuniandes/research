@@ -51,7 +51,7 @@
                 abstract: true,
                 parent: 'reviewEdit',
                 views: {
-                    scoreView: {
+                    reviewChildView: {
                         templateUrl: basePath + 'score.tpl.html',
                         controller: 'scoreCtrl'
                     }

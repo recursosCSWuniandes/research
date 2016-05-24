@@ -27,6 +27,19 @@
                     fn: function () {
                         $state.go('bookList');
                     }
+                },
+                authors: {
+                    displayName: 'Authors',
+                    icon: 'user',
+                    fn: function () {
+                        $state.go('bookAuthorsList');
+                    }
+                }, reviews: {
+                    displayName: 'Reviews',
+                    icon: 'star',
+                    fn: function () {
+                        $state.go('reviewList');
+                    }
                 }
             };
         }]);

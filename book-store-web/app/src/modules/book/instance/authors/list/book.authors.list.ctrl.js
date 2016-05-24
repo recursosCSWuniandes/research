@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 asistente.
+ * Copyright 2016 afesg.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,34 +22,26 @@
  * THE SOFTWARE.
  */
 
-
 (function (ng) {
     var mod = ng.module('bookModule');
 
-    mod.controller('bookAuthorsCtrl', ['$scope', 'authors', 'pool', 'model', '$state',
-        function ($scope, authors, pool, model, $state) {
+    mod.controller('bookAuthorsListCtrl', ['$scope', 'authors', 'model', '$state',
+        function ($scope, authors, model, $state) {
             $scope.records = authors;
             $scope.fields = model.fields;
             $scope.actions = {
-                create: {
-                    displayName: 'Add',
-                    icon: 'plus',
+                edit: {
+                    displayName: 'Edit',
+                    icon: 'ok',
                     fn: function () {
-                        $state.go('authorNew');
+                        $state.go('bookAuthorsEdit');
                     }
-                }
-            };
-            $scope.recordActions = {
-                delete: {
-                    displayName: 'Delete',
-                    icon: 'minus',
-                    fn: function (rc) {
-                        rc.remove().then(function () {
-                            $state.reload();
-                        });
-                    },
-                    show: function () {
-                        return true;
+                },
+                cancel: {
+                    displayName: 'Go back',
+                    icon: 'arrow-left',
+                    fn: function () {
+                        $state.go('bookEdit');
                     }
                 }
             };
