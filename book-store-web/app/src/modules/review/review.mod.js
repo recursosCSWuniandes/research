@@ -54,7 +54,7 @@
             $stateProvider.state('review', {
                 url: '/reviews',
                 abstract: true,
-                parent: 'bookEdit',
+                parent: 'bookDetails',
                 views: {
                     bookChildView: {
                         templateUrl: basePath + 'review.tpl.html',
