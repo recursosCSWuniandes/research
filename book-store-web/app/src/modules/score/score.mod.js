@@ -49,7 +49,7 @@
             $stateProvider.state('score', {
                 url: '/scores',
                 abstract: true,
-                parent: 'reviewEdit',
+                parent: 'reviewDetails',
                 views: {
                     reviewChildView: {
                         templateUrl: basePath + 'score.tpl.html',

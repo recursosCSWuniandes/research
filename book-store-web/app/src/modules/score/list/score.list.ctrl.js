@@ -25,7 +25,7 @@
                     displayName: 'Go back',
                     icon: 'arrow-left',
                     fn: function () {
-                        $state.go('reviewEdit');
+                        $state.go('reviewDetails');
                     }
                 }
             };

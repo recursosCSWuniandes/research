@@ -64,6 +64,8 @@ public class ReviewService {
     public ReviewBasicDTO updateReview(@PathParam("reviewId") Long reviewId, ReviewBasicDTO dto) {
         ReviewEntity entity = dto.toEntity();
         entity.setId(reviewId);
+        ReviewEntity oldEntity = logic.getReview(reviewId);
+        entity.setScore(oldEntity.getScore());
         entity = logic.updateReview(bookId, entity);
         return new ReviewBasicDTO(entity);
     }

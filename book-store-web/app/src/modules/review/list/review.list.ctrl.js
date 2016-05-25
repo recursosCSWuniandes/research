@@ -20,6 +20,13 @@
                     fn: function () {
                         $state.reload();
                     }
+                },
+                cancel: {
+                    displayName: 'Go back',
+                    icon: 'arrow-left',
+                    fn: function () {
+                        $state.go('bookDetails');
+                    }
                 }
             };
             $scope.recordActions = {
@@ -38,6 +45,16 @@
                     icon: 'minus',
                     fn: function (rc) {
                         $state.go('reviewDelete', {bookId: book.id, reviewId: rc.id});
+                    },
+                    show: function () {
+                        return true;
+                    }
+                },
+                details: {
+                    displayName: 'Details',
+                    icon: 'eye-open',
+                    fn: function (rc) {
+                        $state.go('reviewDetails', {bookId: book.id, reviewId: rc.id});
                     },
                     show: function () {
                         return true;

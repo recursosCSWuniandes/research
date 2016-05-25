@@ -1,0 +1,16 @@
+<div ui-view="reviewChildView">
+    <header id="review-header">
+        <toolbar name="'reviews'" display-name="'Reviews'" actions='actions'></toolbar>
+    </header>
+    <div class="well">
+        <div class="caption" >
+            <p><strong>Name:</strong> <span id="{{$index}}-name">{{currentRecord.name}}</span></p>
+            <p><strong>Description:</strong> <span id="{{$index}}-description">{{currentRecord.description}}</span></p>
+            <p><strong>source</strong> <span id="{{$index}}-source">{{currentRecord.source}}</span></p>
+        </div>
+        <p class="text-center">
+            <a ui-sref="reviewEdit({reviewId: currentRecord.id})" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+            <a ui-sref="reviewDelete({reviewId: currentRecord.id})" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
+        </p>
+    </div>
+</div>
