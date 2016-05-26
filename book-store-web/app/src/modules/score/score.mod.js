@@ -33,7 +33,7 @@
         fields: {
             score: {
                 displayName: 'Score',
-                type: 'String',
+                type: 'Integer',
                 required: true
             },
             description: {
@@ -97,7 +97,7 @@
                         }]
                 }
             }).state('scoreDetails', {
-                url: '/',
+                url: '/details',
                 parent: 'scoreInstance',
                 views: {
                     scoreDetailsView: {

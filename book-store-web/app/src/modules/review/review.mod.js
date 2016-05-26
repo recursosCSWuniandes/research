@@ -102,7 +102,7 @@
                         }]
                 }
             }).state('reviewDetails', {
-                url: '/',
+                url: '/details',
                 parent: 'reviewInstance',
                 views: {
                     reviewDetailsView: {

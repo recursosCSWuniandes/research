@@ -121,7 +121,7 @@
                         }]
                 }
             }).state('bookDetails', {
-                url: '/',
+                url: '/details',
                 parent: 'bookInstance',
                 views: {
                     bookDetailsView: {

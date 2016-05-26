@@ -68,7 +68,7 @@
 
     mod.config(['authServiceProvider', function (auth) {
             auth.setValues({
-                apiUrl: 'http://localhost:8080/book-store-api/api/users/',
+                apiUrl: 'http://localhost:8080/book-store-api/api/accounts/',
                 successState: 'book'
             });
         }]);
