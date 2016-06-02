@@ -169,13 +169,10 @@ module.exports = function (grunt) {
             },
             js: {
                 files: ['<%= meta.src %>/**/*.js'],
-                tasks: ['build'],
+                tasks: ['debug'],
                 options: {
                     livereload: '<%= connect.options.livereload %>'
                 }
-            },
-            gruntfile: {
-                files: ['Gruntfile.js']
             },
             livereload: {
                 options: {
