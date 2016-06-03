@@ -23,7 +23,7 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.bookstore.tests;
 
-import co.edu.uniandes.csw.auth.model.CredentialsDTO;
+import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.bookstore.dtos.basic.BookBasicDTO;
 import co.edu.uniandes.csw.bookstore.dtos.minimum.BookMinimumDTO;
@@ -120,8 +120,8 @@ public class BookTest {
     }
 
     public Cookie login(String username, String password) {
-        CredentialsDTO credentials = new CredentialsDTO();
-        credentials.setUsername(username);
+        UserDTO credentials = new UserDTO();
+        credentials.setUserName(username);
         credentials.setPassword(password);
         Response response = target.path("users").path("login").request()
                 .post(Entity.entity(credentials, MediaType.APPLICATION_JSON));
