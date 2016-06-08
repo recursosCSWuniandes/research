@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bookstore.test.logic;
 
 import co.edu.uniandes.csw.bookstore.ejbs.AuthorLogic;
@@ -28,9 +28,10 @@ import co.edu.uniandes.csw.bookstore.api.IAuthorLogic;
 import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
 import co.edu.uniandes.csw.bookstore.persistence.AuthorPersistence;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
+import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
+import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,6 +41,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -86,17 +88,24 @@ public class AuthorLogicTest {
     private List<BookEntity> booksData = new ArrayList<>();
 
     /**
-     * @generated
+     * @return @generated
      */
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
+        JavaArchive[] libs = Maven.resolver().loadPomFromFile("pom.xml")
+                .importRuntimeAndTestDependencies().resolve().withTransitivity()
+                .as(JavaArchive.class);
+        JavaArchive mine = ShrinkWrap.create(JavaArchive.class)
                 .addPackage(AuthorEntity.class.getPackage())
                 .addPackage(AuthorLogic.class.getPackage())
                 .addPackage(IAuthorLogic.class.getPackage())
                 .addPackage(AuthorPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+        for (JavaArchive lib : libs) {
+            mine = mine.merge(lib);
+        }
+        return mine;
     }
 
     /**
