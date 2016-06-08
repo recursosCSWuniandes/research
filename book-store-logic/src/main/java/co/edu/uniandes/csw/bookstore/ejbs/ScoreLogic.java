@@ -63,7 +63,8 @@ public class ScoreLogic implements IScoreLogic {
      */
     @Override
     public List<ScoreEntity> getScores(Long reviewid) {
-        return persistence.findAll(null, null, reviewid);
+        ReviewEntity review = reviewLogic.getReview(reviewid);
+        return review.getScore();
     }
 
     /**
@@ -131,6 +132,7 @@ public class ScoreLogic implements IScoreLogic {
      * Elimina una instancia de Score de la base de datos.
      *
      * @param id Identificador de la instancia a eliminar.
+     * @param reviewid id del Review el cual es padre del Score.
      * @generated
      */
     @Override

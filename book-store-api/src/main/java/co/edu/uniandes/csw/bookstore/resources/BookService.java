@@ -226,8 +226,8 @@ public class BookService {
     }
 
     @Path("{bookId: \\d+}/reviews")
-    public Class<ReviewService> getReviewService() {
-        //getBook(bookId);
+    public Class<ReviewService> getReviewService(@PathParam("bookId") Long bookId) {
+        getBook(bookId);
         return ReviewService.class;
     }
 }

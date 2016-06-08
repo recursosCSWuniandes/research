@@ -22,13 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 package co.edu.uniandes.csw.bookstore.test.persistence;
-
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
-import co.edu.uniandes.csw.bookstore.persistence.BookPersistence;
+import co.edu.uniandes.csw.bookstore.entities.ScoreEntity;
+import co.edu.uniandes.csw.bookstore.persistence.ReviewPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -48,7 +48,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class BookPersistenceTest {
+public class ReviewPersistenceTest {
 
     /**
      * @generated
@@ -56,8 +56,8 @@ public class BookPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(BookEntity.class.getPackage())
-                .addPackage(BookPersistence.class.getPackage())
+                .addPackage(ReviewEntity.class.getPackage())
+                .addPackage(ReviewPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -65,12 +65,13 @@ public class BookPersistenceTest {
     /**
      * @generated
      */
+    BookEntity fatherEntity;
 
     /**
      * @generated
      */
     @Inject
-    private BookPersistence bookPersistence;
+    private ReviewPersistence reviewPersistence;
 
     /**
      * @generated
@@ -113,6 +114,7 @@ public class BookPersistenceTest {
      * @generated
      */
     private void clearData() {
+        em.createQuery("delete from ScoreEntity").executeUpdate();
         em.createQuery("delete from ReviewEntity").executeUpdate();
         em.createQuery("delete from BookEntity").executeUpdate();
     }
@@ -120,7 +122,7 @@ public class BookPersistenceTest {
     /**
      * @generated
      */
-    private List<BookEntity> data = new ArrayList<BookEntity>();
+    private List<ReviewEntity> data = new ArrayList<ReviewEntity>();
 
     /**
      * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
@@ -129,46 +131,50 @@ public class BookPersistenceTest {
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
+            fatherEntity = factory.manufacturePojo(BookEntity.class);
+            fatherEntity.setId(1L);
+            em.persist(fatherEntity);
         for (int i = 0; i < 3; i++) {
-            BookEntity entity = factory.manufacturePojo(BookEntity.class);
+            ReviewEntity entity = factory.manufacturePojo(ReviewEntity.class);
             
+            entity.setBook(fatherEntity);
             em.persist(entity);
             data.add(entity);
         }
     }
     /**
-     * Prueba para crear un Book.
+     * Prueba para crear un Review.
      *
      * @generated
      */
     @Test
-    public void createBookTest() {
-        PodamFactory factory = new PodamFactoryImpl();
-        BookEntity newEntity = factory.manufacturePojo(BookEntity.class);
-        BookEntity result = bookPersistence.create(newEntity);
+    public void createReviewTest() {
+		PodamFactory factory = new PodamFactoryImpl();
+        ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
+        newEntity.setBook(fatherEntity);
+        ReviewEntity result = reviewPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
-        BookEntity entity = em.find(BookEntity.class, result.getId());
+        ReviewEntity entity = em.find(ReviewEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getName(), entity.getName());
+        Assert.assertEquals(newEntity.getSource(), entity.getSource());
         Assert.assertEquals(newEntity.getDescription(), entity.getDescription());
-        Assert.assertEquals(newEntity.getIsbn(), entity.getIsbn());
-        Assert.assertEquals(newEntity.getImage(), entity.getImage());
     }
 
     /**
-     * Prueba para consultar la lista de Books.
+     * Prueba para consultar la lista de Reviews.
      *
      * @generated
      */
     @Test
-    public void getBooksTest() {
-        List<BookEntity> list = bookPersistence.findAll();
+    public void getReviewsTest() {
+        List<ReviewEntity> list = reviewPersistence.findAll(null, null, fatherEntity.getId());
         Assert.assertEquals(data.size(), list.size());
-        for (BookEntity ent : list) {
+        for (ReviewEntity ent : list) {
             boolean found = false;
-            for (BookEntity entity : data) {
+            for (ReviewEntity entity : data) {
                 if (ent.getId().equals(entity.getId())) {
                     found = true;
                 }
@@ -178,54 +184,52 @@ public class BookPersistenceTest {
     }
 
     /**
-     * Prueba para consultar un Book.
+     * Prueba para consultar un Review.
      *
      * @generated
      */
     @Test
-    public void getBookTest() {
-        BookEntity entity = data.get(0);
-        BookEntity newEntity = bookPersistence.find(entity.getId());
+    public void getReviewTest() {
+        ReviewEntity entity = data.get(0);
+        ReviewEntity newEntity = reviewPersistence.find(entity.getBook().getId(), entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
+        Assert.assertEquals(entity.getSource(), newEntity.getSource());
         Assert.assertEquals(entity.getDescription(), newEntity.getDescription());
-        Assert.assertEquals(entity.getIsbn(), newEntity.getIsbn());
-        Assert.assertEquals(entity.getImage(), newEntity.getImage());
     }
 
     /**
-     * Prueba para eliminar un Book.
+     * Prueba para eliminar un Review.
      *
      * @generated
      */
     @Test
-    public void deleteBookTest() {
-        BookEntity entity = data.get(0);
-        bookPersistence.delete(entity.getId());
-        BookEntity deleted = em.find(BookEntity.class, entity.getId());
+    public void deleteReviewTest() {
+        ReviewEntity entity = data.get(0);
+        reviewPersistence.delete(entity.getId());
+        ReviewEntity deleted = em.find(ReviewEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
     /**
-     * Prueba para actualizar un Book.
+     * Prueba para actualizar un Review.
      *
      * @generated
      */
     @Test
-    public void updateBookTest() {
-        BookEntity entity = data.get(0);
+    public void updateReviewTest() {
+        ReviewEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        BookEntity newEntity = factory.manufacturePojo(BookEntity.class);
+        ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
 
         newEntity.setId(entity.getId());
 
-        bookPersistence.update(newEntity);
+        reviewPersistence.update(newEntity);
 
-        BookEntity resp = em.find(BookEntity.class, entity.getId());
+        ReviewEntity resp = em.find(ReviewEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getName(), resp.getName());
+        Assert.assertEquals(newEntity.getSource(), resp.getSource());
         Assert.assertEquals(newEntity.getDescription(), resp.getDescription());
-        Assert.assertEquals(newEntity.getIsbn(), resp.getIsbn());
-        Assert.assertEquals(newEntity.getImage(), resp.getImage());
     }
 }

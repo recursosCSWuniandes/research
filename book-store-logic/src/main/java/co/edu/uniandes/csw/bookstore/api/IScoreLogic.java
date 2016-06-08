@@ -27,7 +27,7 @@ import co.edu.uniandes.csw.bookstore.entities.ScoreEntity;
 import java.util.List;
 
 public interface IScoreLogic {
-    public int countScores();
+     public int countScores();
     public List<ScoreEntity> getScores(Long reviewid);
     public List<ScoreEntity> getScores(Integer page, Integer maxRecords, Long reviewid);
     public ScoreEntity getScore(Long scoreid);

@@ -57,6 +57,10 @@ public class BookLogicTest {
     /**
      * @generated
      */
+
+    /**
+     * @generated
+     */
     private PodamFactory factory = new PodamFactoryImpl();
 
     /**
@@ -85,12 +89,12 @@ public class BookLogicTest {
     /**
      * @generated
      */
-    private List<EditorialEntity> editorialData = new ArrayList<>();
+    private List<AuthorEntity> authorsData = new ArrayList<>();
 
     /**
      * @generated
      */
-    private List<AuthorEntity> authorsData = new ArrayList<>();
+    private List<EditorialEntity> editorialData = new ArrayList<>();
 
     /**
      * @generated
@@ -107,6 +111,8 @@ public class BookLogicTest {
     }
 
     /**
+     * Configuración inicial de la prueba.
+     *
      * @generated
      */
     @Before
@@ -127,48 +133,48 @@ public class BookLogicTest {
     }
 
     /**
+     * Limpia las tablas que están implicadas en la prueba.
+     *
      * @generated
      */
     private void clearData() {
         em.createQuery("delete from ReviewEntity").executeUpdate();
         em.createQuery("delete from BookEntity").executeUpdate();
-        em.createQuery("delete from EditorialEntity").executeUpdate();
         em.createQuery("delete from AuthorEntity").executeUpdate();
+        em.createQuery("delete from EditorialEntity").executeUpdate();
     }
 
     /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+     *
      * @generated
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            EditorialEntity editorial = factory.manufacturePojo(EditorialEntity.class);
-            em.persist(editorial);
-            editorialData.add(editorial);
-        }
-
+        
+        
         for (int i = 0; i < 3; i++) {
             AuthorEntity authors = factory.manufacturePojo(AuthorEntity.class);
             em.persist(authors);
             authorsData.add(authors);
         }
-
+        for (int i = 0; i < 3; i++) {
+            EditorialEntity editorial = factory.manufacturePojo(EditorialEntity.class);
+            em.persist(editorial);
+            editorialData.add(editorial);
+        }
         for (int i = 0; i < 3; i++) {
             BookEntity entity = factory.manufacturePojo(BookEntity.class);
-
-            for (ReviewEntity item : entity.getReviews()) {
-                item.setBook(entity);
-            }
-
-            entity.setEditorial(editorialData.get(0));
-
             entity.getAuthors().add(authorsData.get(0));
+            entity.setEditorial(editorialData.get(0));
+            
 
             em.persist(entity);
             data.add(entity);
         }
     }
-
     /**
+     * Prueba para crear un Book
+     *
      * @generated
      */
     @Test
@@ -182,10 +188,11 @@ public class BookLogicTest {
         Assert.assertEquals(newEntity.getDescription(), entity.getDescription());
         Assert.assertEquals(newEntity.getIsbn(), entity.getIsbn());
         Assert.assertEquals(newEntity.getImage(), entity.getImage());
-        Assert.assertEquals(newEntity.getPublishDate(), entity.getPublishDate());
     }
 
     /**
+     * Prueba para consultar la lista de Books
+     *
      * @generated
      */
     @Test
@@ -203,7 +210,10 @@ public class BookLogicTest {
         }
     }
 
+    
     /**
+     * Prueba para consultar un Book
+     *
      * @generated
      */
     @Test
@@ -216,10 +226,11 @@ public class BookLogicTest {
         Assert.assertEquals(entity.getDescription(), resultEntity.getDescription());
         Assert.assertEquals(entity.getIsbn(), resultEntity.getIsbn());
         Assert.assertEquals(entity.getImage(), resultEntity.getImage());
-        Assert.assertEquals(entity.getPublishDate(), resultEntity.getPublishDate());
     }
 
     /**
+     * Prueba para eliminar un Book
+     *
      * @generated
      */
     @Test
@@ -231,6 +242,8 @@ public class BookLogicTest {
     }
 
     /**
+     * Prueba para actualizar un Book
+     *
      * @generated
      */
     @Test
@@ -249,10 +262,11 @@ public class BookLogicTest {
         Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
         Assert.assertEquals(pojoEntity.getIsbn(), resp.getIsbn());
         Assert.assertEquals(pojoEntity.getImage(), resp.getImage());
-        Assert.assertEquals(pojoEntity.getPublishDate(), resp.getPublishDate());
     }
 
     /**
+     * Prueba para obtener una instancia de Authors asociada a una instancia Book
+     *
      * @generated
      */
     @Test
@@ -263,10 +277,11 @@ public class BookLogicTest {
 
         Assert.assertEquals(authorEntity.getId(), response.getId());
         Assert.assertEquals(authorEntity.getName(), response.getName());
-        Assert.assertEquals(authorEntity.getBirthDate(), response.getBirthDate());
     }
 
     /**
+     * Prueba para obtener una colección de instancias de Authors asociadas a una instancia Book
+     *
      * @generated
      */
     @Test
@@ -276,6 +291,8 @@ public class BookLogicTest {
     }
 
     /**
+     *Prueba para asociar un Authors existente a un Book
+     *
      * @generated
      */
     @Test
@@ -289,6 +306,8 @@ public class BookLogicTest {
     }
 
     /**
+     * Prueba para remplazar las instancias de Authors asociadas a una instancia de Book
+     *
      * @generated
      */
     @Test
@@ -304,6 +323,8 @@ public class BookLogicTest {
     }
 
     /**
+     * Prueba para desasociar un Authors existente de un Book existente
+     *
      * @generated
      */
     @Test
@@ -313,3 +334,4 @@ public class BookLogicTest {
         Assert.assertNull(response);
     }
 }
+

@@ -39,15 +39,21 @@ public class BookLogic implements IBookLogic {
 
     @Inject private BookPersistence persistence;
 
+
     /**
+     * Obtiene el número de registros de Book.
+     *
+     * @return Número de registros de Book.
      * @generated
      */
-    @Override
     public int countBooks() {
         return persistence.count();
     }
 
     /**
+     * Obtiene la lista de los registros de Book.
+     *
+     * @return Colección de objetos de BookEntity.
      * @generated
      */
     @Override
@@ -56,21 +62,34 @@ public class BookLogic implements IBookLogic {
     }
 
     /**
+     * Obtiene la lista de los registros de Book indicando los datos para la paginación.
+     *
+     * @param page Número de página.
+     * @param maxRecords Número de registros que se mostraran en cada página.
+     * @return Colección de objetos de BookEntity.
      * @generated
      */
     @Override
     public List<BookEntity> getBooks(Integer page, Integer maxRecords) {
         return persistence.findAll(page, maxRecords);
     }
+
     /**
+     * Obtiene los datos de una instancia de Book a partir de su ID.
+     *
+     * @param id Identificador de la instancia a consultar
+     * @return Instancia de BookEntity con los datos del Book consultado.
      * @generated
      */
-    @Override
     public BookEntity getBook(Long id) {
         return persistence.find(id);
     }
 
     /**
+     * Se encarga de crear un Book en la base de datos.
+     *
+     * @param entity Objeto de BookEntity con los datos nuevos
+     * @return Objeto de BookEntity con los datos nuevos y su ID.
      * @generated
      */
     @Override
@@ -80,25 +99,35 @@ public class BookLogic implements IBookLogic {
     }
 
     /**
+     * Actualiza la información de una instancia de Book.
+     *
+     * @param entity Instancia de BookEntity con los nuevos datos.
+     * @return Instancia de BookEntity con los datos actualizados.
      * @generated
      */
     @Override
     public BookEntity updateBook(BookEntity entity) {
-        BookEntity newEntity = entity;
-        BookEntity oldEntity = persistence.find(entity.getId());
-        newEntity.setAuthors(oldEntity.getAuthors());
-        return persistence.update(newEntity);
+        return persistence.update(entity);
     }
 
     /**
+     * Elimina una instancia de Book de la base de datos.
+     *
+     * @param id Identificador de la instancia a eliminar.
      * @generated
      */
     @Override
     public void deleteBook(Long id) {
         persistence.delete(id);
     }
+  
 
     /**
+     * Obtiene una colección de instancias de AuthorEntity asociadas a una
+     * instancia de Book
+     *
+     * @param bookId Identificador de la instancia de Book
+     * @return Colección de instancias de AuthorEntity asociadas a la instancia de Book
      * @generated
      */
     @Override
@@ -107,6 +136,10 @@ public class BookLogic implements IBookLogic {
     }
 
     /**
+     * Obtiene una instancia de AuthorEntity asociada a una instancia de Book
+     *
+     * @param bookId Identificador de la instancia de Book
+     * @param authorsId Identificador de la instancia de Author
      * @generated
      */
     @Override
@@ -122,6 +155,11 @@ public class BookLogic implements IBookLogic {
     }
 
     /**
+     * Asocia un Author existente a un Book
+     *
+     * @param bookId Identificador de la instancia de Book
+     * @param authorsId Identificador de la instancia de Author
+     * @return Instancia de AuthorEntity que fue asociada a Book
      * @generated
      */
     @Override
@@ -134,6 +172,11 @@ public class BookLogic implements IBookLogic {
     }
 
     /**
+     * Remplaza las instancias de Author asociadas a una instancia de Book
+     *
+     * @param bookId Identificador de la instancia de Book
+     * @param list Colección de instancias de AuthorEntity a asociar a instancia de Book
+     * @return Nueva colección de AuthorEntity asociada a la instancia de Book
      * @generated
      */
     @Override
@@ -144,6 +187,10 @@ public class BookLogic implements IBookLogic {
     }
 
     /**
+     * Desasocia un Author existente de un Book existente
+     *
+     * @param bookId Identificador de la instancia de Book
+     * @param authorsId Identificador de la instancia de Author
      * @generated
      */
     @Override

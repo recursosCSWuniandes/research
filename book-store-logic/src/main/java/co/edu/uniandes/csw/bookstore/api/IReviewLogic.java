@@ -4,16 +4,11 @@ import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
 import java.util.List;
 
 public interface IReviewLogic {
-
-    public int countReviews(Long bookId);
-
-    public List<ReviewEntity> getReviews(Long bookId);
-
-    public ReviewEntity getReview( Long reviewId);
-
-    public ReviewEntity createReview(Long bookId, ReviewEntity review);
-
-    public ReviewEntity updateReview(Long bookId, ReviewEntity review);
-
-    public void deleteReview(Long reviewId);
+public int countReviews();
+    public List<ReviewEntity> getReviews(Long bookid);
+    public List<ReviewEntity> getReviews(Integer page, Integer maxRecords, Long bookid);
+    public ReviewEntity getReview(Long reviewid);
+    public ReviewEntity createReview(Long bookid, ReviewEntity entity);
+    public ReviewEntity updateReview(Long bookid, ReviewEntity entity);
+    public void deleteReview(Long id);
 }
