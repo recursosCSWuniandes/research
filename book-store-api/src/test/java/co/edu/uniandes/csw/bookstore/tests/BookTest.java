@@ -83,7 +83,7 @@ public class BookTest {
                         .resolve("co.edu.uniandes.csw.bookstore:book-store-logic:0.1.0")
                         .withTransitivity().asFile())
                 .addAsLibraries(Maven.resolver()
-                        .resolve("co.edu.uniandes.csw:auth-utils:0.1.0")
+                        .resolve("co.edu.uniandes.csw:auth-utils:0.1.3")
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
                 .addPackage(BookService.class.getPackage())
