@@ -79,11 +79,8 @@ public class EditorialTest {
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
                 // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
-                .addAsLibraries(Maven.resolver()
-                        .resolve("co.edu.uniandes.csw.bookstore:book-store-logic:0.1.0")
-                        .withTransitivity().asFile())
-                .addAsLibraries(Maven.resolver()
-                        .resolve("co.edu.uniandes.csw:auth-utils:0.1.3")
+                .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml")
+                        .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
                 .addPackage(EditorialService.class.getPackage())
