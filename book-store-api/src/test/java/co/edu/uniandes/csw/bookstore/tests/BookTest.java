@@ -110,6 +110,7 @@ public class BookTest {
 
     private void clearData() {
         em.createQuery("delete from BookEntity").executeUpdate();
+        oraculo.clear();
     }
 
     private void insertData() {
@@ -159,7 +160,6 @@ public class BookTest {
     }
 
     @Test
-    @Ignore
     public void createBookTest() throws IOException {
         BookMinimumDTO book = factory.manufacturePojo(BookMinimumDTO.class);
         Cookie cookieSessionId = login(username, password);
@@ -194,7 +194,6 @@ public class BookTest {
     }
 
     @Test
-    @Ignore
     public void listBookTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
         Response response = target.path(bookPath)
@@ -202,15 +201,13 @@ public class BookTest {
         String listBook = response.readEntity(String.class);
         List<BookMinimumDTO> listBookTest = new ObjectMapper().readValue(listBook, List.class);
         Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(1, listBookTest.size());
+        Assert.assertEquals(3, listBookTest.size());
     }
 
     @Test
-    @Ignore
     public void updateBookTest() throws IOException {
         Cookie cookieSessionId = login(username, password);
         BookMinimumDTO book = new BookMinimumDTO(oraculo.get(0));
-        PodamFactory factory = new PodamFactoryImpl();
         BookMinimumDTO bookChanged = factory.manufacturePojo(BookMinimumDTO.class);
         book.setName(bookChanged.getName());
         book.setDescription(bookChanged.getDescription());
@@ -229,7 +226,6 @@ public class BookTest {
     }
 
     @Test
-    @Ignore
     public void deleteBookTest() {
         Cookie cookieSessionId = login(username, password);
         Long bookId = oraculo.get(0).getId();

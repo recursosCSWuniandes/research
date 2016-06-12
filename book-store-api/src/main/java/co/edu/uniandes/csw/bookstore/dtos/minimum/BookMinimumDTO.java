@@ -28,12 +28,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
+import java.io.Serializable;
 
 /**
  * @generated
  */
 @XmlRootElement
-public class BookMinimumDTO {
+public class BookMinimumDTO implements Serializable{
 
     private Long id;
     private String name;
