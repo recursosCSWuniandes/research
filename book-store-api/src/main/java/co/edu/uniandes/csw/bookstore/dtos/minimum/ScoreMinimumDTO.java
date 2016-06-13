@@ -24,13 +24,14 @@ SOFTWARE.
 package co.edu.uniandes.csw.bookstore.dtos.minimum;
 
 import co.edu.uniandes.csw.bookstore.entities.ScoreEntity;
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @generated
  */
 @XmlRootElement
-public class ScoreMinimumDTO {
+public class ScoreMinimumDTO implements Serializable{
 
     private Long id;
     private Float score;

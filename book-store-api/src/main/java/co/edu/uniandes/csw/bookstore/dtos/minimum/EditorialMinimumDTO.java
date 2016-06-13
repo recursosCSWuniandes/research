@@ -24,13 +24,14 @@ SOFTWARE.
 package co.edu.uniandes.csw.bookstore.dtos.minimum;
 
 import co.edu.uniandes.csw.bookstore.entities.EditorialEntity;
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @generated
  */
 @XmlRootElement
-public class EditorialMinimumDTO {
+public class EditorialMinimumDTO implements Serializable {
 
     private Long id;
     private String name;
