@@ -213,7 +213,6 @@ module.exports = function (grunt) {
             },
             test: {
                 options: {
-                    port: 9001,
                     middleware: function (connect) {
                         return [
                             connect.static(appConfig.instrumented),

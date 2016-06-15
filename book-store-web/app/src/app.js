@@ -23,7 +23,7 @@
  */
 (function (ng) {
     var mod = ng.module('mainApp', [
-        //'ngCrudMock',
+//        'ngCrudMock',
         'bookModule',
         'reviewModule',
         'authorModule',
@@ -40,7 +40,7 @@
         }]);
 
     mod.config(['RestangularProvider', function (rp) {
-            rp.setBaseUrl('http://localhost:8080/book-store-api/api/');
+            rp.setBaseUrl('http://157.253.238.75:8083/research/api/');
             rp.addRequestInterceptor(function (data, operation) {
                 if (operation === "remove") {
                     return null;

@@ -52,14 +52,14 @@
             publishDate: {
                 displayName: 'Publish Date',
                 type: 'Date',
-                required: true
+                required: false
             },
             editorial: {
                 displayName: 'Editorial',
                 type: 'Reference',
                 url: 'editorialModel',
                 options: [],
-                required: true
+                required: false
             }
         }});
 

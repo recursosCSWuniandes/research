@@ -4,6 +4,7 @@
 
     mod.controller("bookNewCtrl", ["$scope", "$state", "books", 'model',
         function ($scope, $state, books, model) {
+            $scope.currentRecord = {};
             $scope.fields = model.fields;
             $scope.actions = {
                 save: {
