@@ -12,8 +12,8 @@
                     icon: 'save',
                     fn: function () {
                         if ($scope.form.$valid) {
-                            books.post($scope.currentRecord).then(function () {
-                                $state.go('bookList', null, {reload: true});
+                            books.post($scope.currentRecord).then(function (book) {
+                                $state.go('bookDetails', {bookId: book.id}, {reload: true});
                             });
                         }
                     }

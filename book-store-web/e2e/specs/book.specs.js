@@ -47,19 +47,25 @@ describe('Book E2E Testing', function () {
             image: imageVarTest
         });
         page.saveButton.click();
-        expect(page.bookList.count()).toEqual(1);
-    });
 
-    it('should read one book', function () {
-        var book = new page.bookItem(0);
+        var book = new page.bookDetails();
+
         expect(book.name.getText()).toBe(nameVarTest);
         expect(book.description.getText()).toBe(descriptionVarTest);
         expect(book.isbn.getText()).toBe(isbnVarTest);
-        expect(book.image.getText()).toBe(imageVarTest);
+    });
+
+    it('should read one book', function () {
+        var book = new page.bookListItem(0);
+        book.self.click();
+        book = new page.bookDetails();
+        expect(book.name.getText()).toBe(nameVarTest);
+        expect(book.description.getText()).toBe(descriptionVarTest);
+        expect(book.isbn.getText()).toBe(isbnVarTest);
     });
 
     it('should edit one book', function () {
-        var book = new page.bookItem(0);
+        var book = new page.bookListItem(0);
         book.editButton.click();
 
         page.fillForm({
@@ -71,18 +77,22 @@ describe('Book E2E Testing', function () {
 
         page.saveButton.click();
 
-        book = page.bookItem(0);
+        book = page.bookDetails();
 
         expect(book.name.getText()).toBe('New' + nameVarTest);
         expect(book.description.getText()).toBe('New' + descriptionVarTest);
         expect(book.isbn.getText()).toBe('New' + isbnVarTest);
-        expect(book.image.getText()).toBe(imageVarTest + '/1');
     });
 
     it('should delete the book', function () {
-        var book = new page.bookItem(0);
+        var before = page.bookList.count();
+        var book = new page.bookListItem(0);
+
         book.deleteButton.click();
         book.confirmDeleteButton.click();
-        expect(page.bookList.count()).toEqual(0);
+
+        var after = page.bookList.count();
+
+        expect(after).toBeLessThan(before);
     });
 });

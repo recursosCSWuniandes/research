@@ -27,29 +27,38 @@
 module.exports = function () {
     // list
     this.bookList = element.all(by.repeater('record in records'));
-    
+
     // buttons
     this.createButton = element(by.id('create-books'));
     this.saveButton = element(by.id('save-books'));
     this.refreshButton = element(by.id('save-books'));
     this.cancelButton = element(by.id('cancel-books'));
-    
+
     // form inputs
     this.name = element(by.id('name'));
     this.description = element(by.id('description'));
     this.isbn = element(by.id('isbn'));
     this.image = element(by.id('image'));
-    
+
     // list item
-    this.bookItem = function (index) {
+    this.bookListItem = function (index) {
+        this.self = element.all(by.repeater('record in records')).get(index);
         this.name = element(by.id(index + '-name'));
         this.description = element(by.id(index + '-description'));
         this.isbn = element(by.id(index + '-isbn'));
         this.editButton = element(by.id(index + '-edit-btn'));
-        this.editButton = element(by.id(index + '-delete-btn'));
+        this.deleteButton = element(by.id(index + '-delete-btn'));
         this.confirmDeleteButton = element(by.id('confirm-delete'));
     };
-    this.fillForm = function(book){
+    this.bookDetails = function () {
+        this.name = element(by.id('book-name'));
+        this.description = element(by.id('book-description'));
+        this.isbn = element(by.id('book-isbn'));
+        this.editButton = element(by.id('book-edit-btn'));
+        this.deleteButton = element(by.id('book-delete-btn'));
+        this.confirmDeleteButton = element(by.id('confirm-delete'));
+    };
+    this.fillForm = function (book) {
         this.name.clear().sendKeys(book.name);
         this.description.clear().sendKeys(book.description);
         this.isbn.clear().sendKeys(book.isbn);

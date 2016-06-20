@@ -16,7 +16,7 @@
                     fn: function () {
                         if ($scope.bookForm.$valid) {
                             $scope.currentRecord.put().then(function () {
-                                $state.go('bookList', null, {reload: true});
+                                $state.go('bookDetails', {bookId: book.id}, {reload: true});
                             });
                         }
                     }

@@ -42,9 +42,7 @@ import co.edu.uniandes.csw.bookstore.api.IBookLogic;
 import co.edu.uniandes.csw.bookstore.dtos.basic.BookBasicDTO;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.dtos.basic.AuthorBasicDTO;
-import co.edu.uniandes.csw.bookstore.dtos.basic.ReviewBasicDTO;
 import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
-import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
 import java.util.ArrayList;
 import static java.util.stream.Collectors.toList;
 

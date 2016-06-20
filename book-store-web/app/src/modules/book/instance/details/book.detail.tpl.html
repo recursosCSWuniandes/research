@@ -11,15 +11,15 @@
             </div>
         </div>
         <div class="caption" >
-            <p><strong>Name:</strong> <span id="{{$index}}-name">{{currentRecord.name}}</span></p>
-            <p><strong>Description:</strong> <span id="{{$index}}-description">{{currentRecord.description}}</span></p>
-            <p><strong>ISBN:</strong> <span id="{{$index}}-isbn">{{currentRecord.isbn}}</span></p>
-            <p><strong>Publish Date:</strong> <span id="{{$index}}-publishDate">{{currentRecord.publishDate| date}}</span></p>
-            <p><strong>Editorial:</strong> <span id="{{$index}}-publishDate">{{currentRecord.editorial.name}}</span></p>
+            <p><strong>Name:</strong> <span id="book-name">{{currentRecord.name}}</span></p>
+            <p><strong>Description:</strong> <span id="book-description">{{currentRecord.description}}</span></p>
+            <p><strong>ISBN:</strong> <span id="book-isbn">{{currentRecord.isbn}}</span></p>
+            <p><strong>Publish Date:</strong> <span id="book-publishDate">{{currentRecord.publishDate| date}}</span></p>
+            <p><strong>Editorial:</strong> <span id="book-editorial">{{currentRecord.editorial.name}}</span></p>
         </div>
         <p class="text-center">
-            <a ui-sref="bookEdit({bookId: currentRecord.id})" id="{{$index}}-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-            <a ui-sref="bookDelete({bookId: currentRecord.id})" id="{{$index}}-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
+            <a ui-sref="bookEdit({bookId: currentRecord.id})" id="book-edit-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+            <a ui-sref="bookDelete({bookId: currentRecord.id})" id="book-delete-btn" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Delete</a>
         </p>
     </div>
 </div>

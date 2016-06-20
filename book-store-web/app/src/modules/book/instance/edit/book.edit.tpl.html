@@ -1,8 +1,16 @@
 <header id="book-header">
     <toolbar name="'books'" display-name="'Books'" actions='actions'></toolbar>
 </header>
-<form name='$parent.bookForm'>
+<form name='form'>
+    <div ng-messages="form.$error" multiple>
+        <ng-message when="required">
+            <alert type="warning">Please, Fill the required fields!</alert>
+        </ng-message>
+        <ng-message when="url">
+            <alert type="warning">Image field must be a URL</alert>
+        </ng-message>
+    </div>
     <fieldset>
-        <crud-form name="'bookForm'" fields='fields' record='currentRecord' lists-of-values="references"></crud-form>
+        <crud-form form="form" fields='fields' record='currentRecord' lists-of-values="references"></crud-form>
     </fieldset>
 </form>
